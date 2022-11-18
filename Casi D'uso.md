@@ -4,6 +4,11 @@
 
 # Gestione impiegati 
 
+Index: 
+
+* [Assunzione impiegato](#assunzione-impiegato)
+* [Licenziamento impiegato](#licenziamento-impiegato)
+
 ## Assunzione impiegato
 
 Il seguente caso d'uso permette all'utente avente i permessi da datore di lavoro di assumere un nuovo impiegato inserendolo all'interno del database aziendale. 
