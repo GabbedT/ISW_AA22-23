@@ -1,10 +1,3 @@
-DOMANDE 
-
-Ogni quanto viene generata la turnazione?
-
-Entro quando è valida la rilevazione da remoto?
-
-
 REQUISITI FUNZIONALI
 
 IMPIEGATO:
