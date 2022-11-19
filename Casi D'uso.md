@@ -2,12 +2,32 @@
 
 &nbsp;
 
+## Indice generale  
+
+* [Gestione impiegati](#gestione-impiegati)
+* [Gestione turni e presenze](#gestione-turni-e-presenze)
+
+&nbsp;
+
+
 # Gestione impiegati 
 
-Index: 
+Indice: 
 
 * [Assunzione impiegato](#assunzione-impiegato)
 * [Licenziamento impiegato](#licenziamento-impiegato)
+* [Visualizza dati impiegato](#visualizza-dati-impiegato)
+* [Modifica stipendio](#modifica-stipendio)
+* [Recupera password](#recupera-password)
+* [Modifica password](#modifica-password)
+* [Modifica regime di lavoro](#modifica-regime-di-lavoro)
+* [Conferma richiesta di astensione](#conferma-richiesta-di-astensione)
+* [Modifica richiesta di astensione](#modifica-richiesta-di-astensione)
+
+
+&nbsp;
+
+---
 
 ## Assunzione impiegato
 
@@ -69,7 +89,7 @@ Il seguente caso d'uso permette all'utente avente i permessi da datore di lavoro
 1. L'utente ricerca l'impiegato all'interno del database inserendo *nome* e *cognome* e preme il tasto *Ricerca*
 
 2. **SE** nel database non viene trovato almeno un dipendente:
-   * Il sistema mostra un messaggio di informazione a video 
+   * Il sistema mostra un messaggio di errore a video 
    * L'utente clicca il tasto conferma
    * Il Sistema mostra nuovamente l'interfaccia 
 
@@ -83,6 +103,22 @@ Il seguente caso d'uso permette all'utente avente i permessi da datore di lavoro
 ### Postcondizioni 
 
 * Il sistema ha aggiornato il DBMS aziendale e ha mostrato la schermata *Home* all'utente
+
+---
+
+&nbsp;
+
+
+
+# Gestione turni e presenze 
+
+* [Genera turnazione](#genera-turnazione)
+* [Rileva presenza](#rileva-presenza)
+* [Rileva presenza da remoto](#rileva-presenza-da-remoto)
+* [Comunica assenza](#comunica-assenza)
+* [Sostituisci impiegato](#sostituisci-impiegato)
+* [Richiedi astensione](#richiedi-astensione)
+
 
 ---
 
