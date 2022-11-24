@@ -43,11 +43,7 @@ IMPIEGATO:
 
 * All'assunzione di un dipendente, il database viene aggiornato con i propri dati.
 
-* Requisiti licenziamento (reset trimestrale): 3 ritardi e 3 uscite anticipate(non giustificati)- 3 assenze(escluse astensioni)- 8 tra ritardi e/o uscite anticipate
-  
-  - Conferma del datore di lavoro
-  
-
+Se il dipendente richiede x di giorni di assenza saranno x richieste di assenza 
 
 ATTORI:
 
