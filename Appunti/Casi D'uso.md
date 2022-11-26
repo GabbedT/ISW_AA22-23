@@ -22,6 +22,7 @@ Indice:
 * [Modifica stipendio](#modifica-stipendio) (Opzionale)
 * [Modifica regime di lavoro](#modifica-regime-di-lavoro) (Opzionale)
 * [Visualizza dati impiegato (Impiegato)](#visualizza-dati-impiegato)
+* [Visualizza notifiche](#visualizza-notifiche)
 
 
 &nbsp;
@@ -237,6 +238,32 @@ Il seguente caso d'uso permette all'utente avente i permessi da datore di lavoro
 Il sistema ha aggiornato il DBMS e l'utente si ritrova nell'interfacccia delle informazioni sul dipendente
 
 
+
+---
+&nbsp;
+
+
+
+## Visualizza Notifiche
+
+Il seguente caso d'uso permette all'utente di visualizzare le proprie notifiche
+
+### Attori
+
+* Utente
+* DBMS 
+
+### Precondizioni
+
+* L'utente si trova nella schermata *Home* 
+* L'utente è loggato
+
+### Flusso Eventi 
+
+1. L'utente clicca sul pulsante delle notifiche
+2. Il sistema manda una richiesta al database per leggere le notifiche associate all'utente
+3. Il sistema mostra a video tutte le notifiche arrivate
+
 ---
 
 &nbsp;
@@ -251,7 +278,7 @@ Indice:
 
 * [Login account](#login-account)
 * [Logout account](#logout-account)
-* [Riconnessione account](#riconnessione-account) (?)
+* [Riconnessione account](#riconnessione-account) (Software)
 * [Recupera credenziali](#recupera-credenziali)
 * [Modifica password](#modifica-password)
 
@@ -338,6 +365,11 @@ L'utente si trova sulla schermata di *Login*
 ## Riconnessione Account 
 
 Il seguente caso d'uso permette all'utente di riconnettersi al proprio account in caso di disconnessione
+
+### Attori
+
+* Tempo
+* DBMS
 
 ### Precondizioni 
 
@@ -480,6 +512,7 @@ Il seguente caso d'uso permette all'impegato di dimostrare la sua presenza in or
 
 * Impiegato
 * DBMS
+* Tempo
 
 ### Precondizioni
 
@@ -521,6 +554,7 @@ Il seguente caso d'uso permette all'impegato di dimostrare la sua presenza sul p
 
 * Impiegato
 * DBMS
+* Tempo
   
 ### Precondizioni
 
