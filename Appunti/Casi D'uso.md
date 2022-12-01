@@ -430,8 +430,7 @@ Il seguente caso d'uso permette all'utente generico di recuperare le proprie cre
    - L'utente ritorna al punto 2
 
 6. **ALTRIMENTI:**
-   - Il sistema genera una nuova password e la inserisce all'interno del DBMS
-   - Viene mostrata a video una notifica con la nuova password
+   - Il sistema manda una mail all'utente con la password
    - L'utente clicca sul tasto *OK* del messaggio per confermarne la visione
 
 7. L'utente viene reindirizzato nella schermata di login
@@ -453,6 +452,7 @@ Il sistema ha aggiornato il DBMS e l'utente si ritrova nella schermata di login
 # Gestione turni e presenze 
 
 * [Genera turnazione](#genera-turnazione)
+* [Modifica turnazione](#modifica-turnazione)
 * [Rileva presenza](#rileva-presenza)
 * [Rileva presenza da remoto](#rileva-presenza-da-remoto)
 * [Richiedi assenza](#richiedi-assenza)
@@ -462,6 +462,7 @@ Il sistema ha aggiornato il DBMS e l'utente si ritrova nella schermata di login
 * [Conferma richiesta di astensione](#conferma-richiesta-di-astensione)
 * [Modifica richiesta di astensione](#modifica-richiesta-di-astensione)
 * [Rifiuta richiesta di astensione](#rifiuta-richiesta-di-astensione)
+* [Esprimi preferenza turno](#esprimi-preferenza-turno)
 
 
 ---
