@@ -45,6 +45,13 @@ IMPIEGATO:
 
 Se il dipendente richiede x di giorni di assenza saranno x richieste di assenza 
 
+* Assunzione / Licenziamento / Pensione / Astensioni decorre dal primo di ogni trimestre
+
+* L'assenza può essere solo programmata (astensione)
+
+* Niente avvisi su ritardi 
+  
+* Si può timbrare fino a 10 minuti prima l'entrata e entro 10 minuti dopo l'uscita
 ATTORI:
 
 Dipendente 

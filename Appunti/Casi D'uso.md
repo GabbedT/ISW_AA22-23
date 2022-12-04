@@ -19,8 +19,6 @@ Indice:
 * [Assunzione impiegato](#assunzione-impiegato)
 * [Licenziamento impiegato (Datore)](#licenziamento-impiegato)
 * [Visualizza dati impiegato](#visualizza-dati-impiegato)
-* [Modifica stipendio](#modifica-stipendio) (Opzionale)
-* [Modifica regime di lavoro](#modifica-regime-di-lavoro) (Opzionale)
 * [Visualizza dati impiegato (Impiegato)](#visualizza-dati-impiegato)
 * [Visualizza notifiche](#visualizza-notifiche)
 
@@ -278,7 +276,7 @@ Indice:
 
 * [Login account](#login-account)
 * [Logout account](#logout-account)
-* [Riconnessione account](#riconnessione-account) (Software)
+* [Riconnessione account](#riconnessione-account)
 * [Recupera credenziali](#recupera-credenziali)
 * [Modifica password](#modifica-password)
 
