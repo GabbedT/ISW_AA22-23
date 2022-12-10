@@ -386,6 +386,9 @@ Questo caso d'uso permette al sistema di calcolare lo stipendio per un dipendent
 * [Recupera Credenziali](#recupera-credenziali)
 * [Modifica Password](#modifica-password)
 
+&nbsp;
+
+---
 
 
 ## Login Account
@@ -620,6 +623,15 @@ Il seguente caso d'uso permette all'utente di modificare la propria password
 # Gestione Turni
 
 * [Richiedi Astensione](#richiedi-astensione)
+* [Conferma Richiesta Di Astensione](#conferma-richiesta-di-astensione)
+* [Rifiuta Richiesta Di Astensione](#rifiuta-richiesta-di-astensione)
+* [Visualizza Turnazione Completa](#visualizza-turnazione-completa)
+* [Genera Turnazione](#genera-turnazione)
+
+
+&nbsp;
+
+---
 
 
 ## Richiedi Astensione
@@ -827,3 +839,254 @@ Il seguente caso d'uso permette al sistema di generare una nuova turnazione.
 Dobbiamo presupporre che il datore faccia errori sul permesso di astensione? (Accetti l'astensione di almeno 3 persone dello stesso servizio nello stesso periodo)
 
 I ritardi devono essere sostituiti? 
+
+
+
+&nbsp;
+
+---
+
+
+
+# Gestione Rilevazione Presenze
+
+* [Rileva Presenza](#rileva-presenza)
+* [Rileva Presenza Da Remoto](#rileva-presenza-da-remoto)
+
+
+&nbsp;
+
+---
+
+
+## Rileva Presenza
+
+Il seguente caso d'uso permette al dipendente di dimostrare la sua presenza in orario sul posto di lavoro.
+
+### Attori 
+
+* DBMS
+* Tempo
+
+### Precondizioni
+
+* Il sistema ha mandato un messaggio di conferma quando il dipendente ha badgato
+* Il dipendente deve aver badgato entro 10 minuti dall'inizio del turno
+
+### Flusso eventi
+
+1. Il messaggio di conferma con le informazioni sul turno e sul dipendente viene ricevuto
+
+2. Scrivi sul corrispondente turno nel DBMS l'informazione sulla rilevazione della presenza (in orario)
+
+### Postcondizioni 
+
+* Il sistema ha aggiornato il DBMS aziendale 
+
+
+
+&nbsp;
+
+---
+
+
+
+## Rileva Presenza Da Remoto
+
+Il seguente caso d'uso permette al dipendente di dimostrare la sua presenza in orario sul posto di lavoro.
+
+### Attori 
+
+* Dipendente
+* DBMS
+* Tempo
+
+### Precondizioni
+
+* Il sistema ha mandato un messaggio di conferma quando il dipendente ha badgato
+* Il dipendente ha sforato il tempo limite per l'ingresso in orario
+* Il dipendente ha cliccato sul tasto *Rileva Presenza Da Remoto*
+
+### Flusso eventi
+
+1. Il messaggio di conferma con le informazioni sul turno e sul dipendente viene ricevuto
+
+2. Scrivi sul corrispondente turno nel DBMS l'informazione sulla rilevazione della presenza (in ritardo)
+
+### Postcondizioni 
+
+* Il sistema ha aggiornato il DBMS aziendale e ha mostrato la schermata *Home* all'utente
+
+### Errori
+
+* L'utente ha cliccato sul tasto *Rileva Presenza Da Remoto* prima dello scadere del tempo limite:
+    - Il sistema mostra il messaggio di errore: "Errore: la rilevazione della presenza da remoto è concessa solo dopo le ore: (stampa l'ora limite della rilevazione presenza)"
+
+
+&nbsp;
+
+---
+
+
+# Gestione Notifiche 
+
+* [Visualizza Lista Notifiche](#visualizza-lista-notifiche)
+* [Visualizza Notifica](#visualizza-notifica)
+* [Invia Notifica](#invia-notifica)
+* [Elimina Notifica](#elimina-notifica)
+
+&nbsp;
+
+---
+
+
+## Visualizza Lista Notifiche
+
+Il seguente caso d'uso permette al generico utente di visualizzare la lista delle notifiche
+
+### Attori
+
+* Utente
+* DBMS 
+
+### Precondizioni 
+
+* L'utente ha cliccato sul tasto per *visualizzare tutte le notifiche*
+
+### Flusso Eventi 
+
+1. Il sistema manda una richiesta di lettura al DBMS per ogni notifica associata all'utente
+
+2. Il sistema stampa a schermo solo il nome e il tipo della notifica per ogni notifica prelevata dal DBMS
+
+### Postcondizioni
+
+* Il sistema ha mostrato all'utente la lista delle notifiche
+
+### Errori 
+
+* Il sistema non riesce a connettersi con il DBMS: 
+    - Il sistema mostra il messaggio di errore: "Errore durante la connessione con il database"
+    - L'utente clicca il tasto *Ok*
+    - L'utente ritorna al punto 1 
+
+
+
+&nbsp;
+
+---
+
+
+
+## Visualizza Notifica 
+
+Il seguente caso d'uso permette al generico utente di visualizzare una notifica
+
+### Attori 
+
+* Utente 
+* DBMS 
+
+### Precondizioni 
+
+* L'utente ha [visualizzato la lista delle notifiche](#visualizza-lista-notifiche) inbox e cliccato sulla notifica da visualizzare
+
+### Flusso Eventi
+
+1. Il sistema manda una richiesta di lettura al DBMS 
+
+2. Il sistema stampa a schermo tutte le informazioni sulla notifica
+
+### Postcondizioni 
+
+* Il sistema ha mostrato all'utente la notifica
+
+### Errori 
+
+* Il sistema non riesce a connettersi con il DBMS: 
+    - Il sistema mostra il messaggio di errore: "Errore durante la connessione con il database"
+    - L'utente clicca il tasto *Ok*
+    - L'utente ritorna al punto 1 
+
+
+
+&nbsp;
+
+---
+
+
+
+## Invia Notifica 
+
+Il seguente caso d'uso permette al sistema di inviare una notifica ad un generico utente
+
+### Attori 
+
+* DBMS 
+
+### Precondizioni
+
+* Il sistema ha ricevuto una richiesta di invio notifica
+
+### Flusso Eventi
+
+1. Riempi i campi della notifica e setta il tipo 
+
+2. Manda una richiesta al DBMS per creare un'entità notifica
+
+### Postcondizioni 
+
+* Il sistema ha creato una nuova notifica
+
+### Errori 
+
+* Il sistema non riesce a connettersi con il DBMS: 
+    - Il sistema mostra il messaggio di errore: "Errore durante la connessione con il database"
+    - L'utente clicca il tasto *Ok*
+    - L'utente ritorna al punto 1 
+
+
+
+&nbsp;
+
+---
+
+
+
+## Elimina Notifica 
+
+Il seguente caso d'uso permette al sistema di eliminare una notifica
+
+### Attori 
+
+* Tempo
+* DBMS 
+
+### Precondizioni
+
+* Il sistema ha ricevuto una richiesta periodica di controllo notifiche
+
+### Flusso Eventi
+
+1. Il sistema manda una richiesta di lettura al DBMS 
+
+2. Per ogni notifica letta controlla lo stato (letta oppure non letta)
+
+3. **SE** la notifica è stata letta:
+    - Controlla la data di lettura
+    - Confronta con la data del sistema
+    - Elimina la notifica se la differenza tra la data del sistema e quella di lettura è maggiore di 1 mese
+
+4. **ALTRIMENTI**:
+    - Non effettuare alcuna eliminazione 
+
+### Postcondizioni 
+
+* Il sistema ha eliminato una notifica
+
+### Errori 
+
+* Il sistema non riesce a connettersi con il DBMS: 
+    - Il sistema mostra il messaggio di errore: "Errore durante la connessione con il database"
+    - L'utente clicca il tasto *Ok*
+    - L'utente ritorna al punto 1 

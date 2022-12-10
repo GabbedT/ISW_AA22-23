@@ -443,7 +443,51 @@ Il sistema ha aggiornato il DBMS e l'utente si ritrova nella schermata di login
 
 &nbsp;
 
+
+
+## Modifica Password 
+
+Il seguente caso d'uso permette all'utente generico di modificare la propria password
+
+### Attori 
+
+* Utente 
+* DBMS 
+
+### Precondizioni
+
+* Il sistema deve aver mostrato a video la schermata di modifica
+
+### Flusso eventi
+
+1. L'utente clicca sul tasto *Recupera credenziali*
+
+2. Il sistema mostra l'interfaccia di recupero credenziali 
+
+3. L'utente inserisce la mail collegata al proprio account nell'apposito riquadro e conferma l'inserimento cliccando sul tasto *Conferma*
+
+4. Il sistema controlla l'esistenza dell'email interrogando il DBMS 
+
+5. **SE** l'email non è trovata: 
+   - Il sistema mostra a video un messaggio di errore
+   - L'utente chiude il messaggio cliccando sul tasto *OK*
+   - L'utente ritorna al punto 2
+
+6. **ALTRIMENTI:**
+   - Il sistema manda una mail all'utente con la password
+   - L'utente clicca sul tasto *OK* del messaggio per confermarne la visione
+
+7. L'utente viene reindirizzato nella schermata di login
+
+### Postcondizioni 
+
+Il sistema ha aggiornato il DBMS e l'utente si ritrova nella schermata di login
+
+
+
 &nbsp;
+
+---
 
 
 
