@@ -816,7 +816,7 @@ L'utente è nella schermata di *Home*
   
 ### Precondizioni
 
- * L'utente si trova nel caso d'uso Gestisci Assenza
+* L'utente si trova nel caso d'uso Gestisci Assenza
 
 
 

@@ -54,5 +54,10 @@ Se il dipendente richiede x di giorni di assenza saranno x richieste di assenza
 * Si può timbrare fino a 10 minuti prima l'entrata e entro 10 minuti dopo l'uscita
 ATTORI:
 
+
+* 2 turni di 6 ore al giorno ogni servizio fino a Sabato (8:00 - 14:00  |  14:00 - 20:00 )
+
+* Per ogni servizio ci sono 4 dipendenti che si dividono in 2 la mattina e 2 nel pomeriggio.
+
 Dipendente 
 Datore di lavoro
