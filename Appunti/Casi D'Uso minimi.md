@@ -6,7 +6,7 @@
 * [Gestione Accesso Account](#gestione-accesso-account)
 * [Gestione Turni](#gestione-turni-e-presenze)
 * [Gestione Rilevazione Presenze](#gestione-rilevazione-presenze)
-* [Visualizza Notifiche](#visualizza-notifiche)
+* [Gestione Notifiche](#gestione-notifiche)
 
 &nbsp;
 
