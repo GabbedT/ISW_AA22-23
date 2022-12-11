@@ -3,8 +3,8 @@
 ## Vista d'insieme
 
 * [Gestione Dipendenti](#gestione-impiegati)
-* [Gestione Accesso Account](#gestione-accesso-account)
-* [Gestione Turni](#gestione-turni-e-presenze)
+* [Gestione Account](#gestione-account)
+* [Gestione Turni](#gestione-turni)
 * [Gestione Rilevazione Presenze](#gestione-rilevazione-presenze)
 * [Gestione Notifiche](#gestione-notifiche)
 
@@ -28,7 +28,7 @@
 ---
 
 
-## Assumi Impiegato
+## Assumi Dipendente
 
 Il seguente caso d'uso permette all'utente avente i permessi da datore di lavoro di assumere un nuovo impiegato inserendolo all'interno del database aziendale. 
 
@@ -126,9 +126,6 @@ Il seguente caso d'uso permette all'utente avente i permessi da datore di lavoro
     - L'utente clicca il tasto *Ok*
     - L'utente ritorna al punto 1 
 
-* L'utente clicca sul tasto *No*: 
-    - Il sistema reindirizza l'utente all'interfaccia dei dati del dipendente
-
 
 
 &nbsp;
@@ -153,13 +150,11 @@ Il seguente caso d'uso permette all'utente avente i permessi da impiegato di vis
 
 ### Flusso Eventi 
 
-1. L'utente clicca sul pulsante *Account* 
+1. L'utente clicca sul pulsante *Il mio Account* 
 
-2. L'utente clicca sul pulsante *Il mio Account* 
+2. Il sistema manda una richiesta al DBMS per prelevare i dati utili
 
-3. Il sistema manda una richiesta al DBMS per prelevare i dati utili
-
-4. Il sistema stampa a schermo le informazioni sull'account dell'utente e la relativa tabella dei turni (vedi [visualizza turnazione](#visualizza-turnazione)). 
+3. Il sistema stampa a schermo le informazioni sull'account dell'utente 
 
 ### Postcondizioni
 
@@ -182,7 +177,7 @@ Il seguente caso d'uso permette all'utente avente i permessi da impiegato di vis
 
 ## Visualizza Dati Dipendente 
 
-Il seguente caso d'uso permette all'utente avente i permessi da datore lavoro di visualizzare i dati del corrispondente impiegato compresa l'organizzazione dei suoi turni durante il trimestre.
+Il seguente caso d'uso permette all'utente avente i permessi da datore lavoro di visualizzare i dati del corrispondente impiegato.
 
 ### Attori 
 
@@ -201,7 +196,7 @@ Il seguente caso d'uso permette all'utente avente i permessi da datore lavoro di
 
 2. Il sistema manda una richiesta al DBMS per prelevare i dati utili
 
-3. Il sistema stampa a schermo le informazioni sull'account dell'utente e la relativa tabella dei turni. 
+3. Il sistema stampa a schermo le informazioni sull'account dell'utente.
 
 ### Postcondizioni
 
@@ -378,7 +373,7 @@ Questo caso d'uso permette al sistema di calcolare lo stipendio per un dipendent
 
 &nbsp; 
 
-# Gestione Accesso Account
+# Gestione Account
 
 * [Login Account](#login-account)
 * [Logout Account](#logout-account)
@@ -528,11 +523,13 @@ Il seguente caso d'uso permette all'utente generico di recuperare le proprie cre
 
 3. Il sistema controlla l'esistenza dell'email interrogando il DBMS 
 
-4. Il sistema mostra un messaggio all'utente con la password
-   
-5. L'utente clicca sul tasto *OK* del messaggio per confermarne la visione
+4. Il sistema genera una nuova password
 
-6. L'utente viene reindirizzato nella schermata di login
+5. Il sistema mostra un messaggio all'utente con la nuova password
+   
+6. L'utente clicca sul tasto *OK* del messaggio per confermarne la visione
+
+7. L'utente viene reindirizzato nella schermata di login
 
 ### Postcondizioni 
 
