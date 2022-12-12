@@ -402,9 +402,13 @@ Il seguente caso d'uso permette all'utente generico di accedere al proprio accou
 
 ### Flusso eventi
 
-1. Il sistema manda una richiesta al DBMS e verifica che le credenziali siano corrette
+1. L'utente inserisce le proprie credenziali negli appositi riquadri
 
-2. L'utente viene reindirizzato direttamente verso la schermata di *Home* del proprio account
+2. L'utente clicca sul tasto *Login*
+
+3. Il sistema manda una richiesta al DBMS e verifica che le credenziali siano corrette
+
+4. L'utente viene reindirizzato direttamente verso la schermata di *Home* del proprio account
 
 ### Postcondizioni 
 
@@ -441,11 +445,12 @@ Il seguente caso d'uso permette all'utente generico di uscire dal proprio accoun
 ### Precondizioni
 
 * Il sistema deve aver mostrato a video la schermata *Home*
-* L'utente deve aver cliccato sul tasto *Logout*
 
 ### Flusso eventi
 
-1. Il sistema esce dall'account del dipendente e mostra a video la schermata iniziale di *Login*
+1. L'utente clicca sul tasto *Logout*
+
+2. Il sistema esce dall'account del dipendente e mostra a video la schermata iniziale di *Login*
 
 ### Postcondizioni 
 
@@ -513,23 +518,24 @@ Il seguente caso d'uso permette all'utente generico di recuperare le proprie cre
 ### Precondizioni
 
 * Il sistema deve aver mostrato a video la schermata di login
-* L'utente deve aver cliccato sul tasto *Recupera credenziali* 
 
 ### Flusso eventi
 
-1. Il sistema mostra l'interfaccia di recupero credenziali 
+1. L'utente clicca sul tasto *Recupera Credenziali*
 
-2. L'utente inserisce la mail collegata al proprio account e la propria matricola nell'apposito riquadro e conferma l'inserimento cliccando sul tasto *Conferma*
+2. Il sistema mostra l'interfaccia di recupero credenziali 
 
-3. Il sistema controlla l'esistenza dell'email interrogando il DBMS 
+3. L'utente inserisce la mail collegata al proprio account e la propria matricola nell'apposito riquadro e conferma l'inserimento cliccando sul tasto *Conferma*
 
-4. Il sistema genera una nuova password
+4. Il sistema controlla l'esistenza dell'email interrogando il DBMS 
 
-5. Il sistema mostra un messaggio all'utente con la nuova password
+5. Il sistema genera una nuova password
+
+6. Il sistema mostra un messaggio all'utente con la nuova password
    
-6. L'utente clicca sul tasto *OK* del messaggio per confermarne la visione
+7. L'utente clicca sul tasto *OK* del messaggio per confermarne la visione
 
-7. L'utente viene reindirizzato nella schermata di login
+8. L'utente viene reindirizzato nella schermata di login
 
 ### Postcondizioni 
 
@@ -567,29 +573,30 @@ Il seguente caso d'uso permette all'utente di modificare la propria password
 ### Precondizioni 
 
 * L'utente deve essere connesso all'account 
-* L'utente deve aver cliccato sul tasto *Modifica Password*
 
 ### Flusso Eventi
 
-1. Il sistema mostra l'interfaccia di recupero password
+1. L'utente clicca sul tasto *Modifica Password*
 
-2. L'utente inserisce la vecchia password nel riquadro corrispondente
+2. Il sistema mostra l'interfaccia di recupero password
 
-3. L'utente inserisce la nuova password nel riquadro corrispondente
+3. L'utente inserisce la vecchia password nel riquadro corrispondente
 
-4. L'utente reinserisce la nuova password nel riquadro corrispondente
+4. L'utente inserisce la nuova password nel riquadro corrispondente
 
-5. Il sistema controlla se le nuove password coincidono
+5. L'utente reinserisce la nuova password nel riquadro corrispondente
 
-5. Il sistema controlla se la vecchia password inserita è corretta
+6. Il sistema controlla se le nuove password coincidono
 
-6. L'utente clicca sul tasto *Conferma*
+7. Il sistema controlla se la vecchia password inserita è corretta
 
-7. Il sistema stampa il messaggio di stato: "La password è stata cambiata!"
+8. L'utente clicca sul tasto *Conferma*
 
-8. L'utente clicca il tasto *Ok*
+9. Il sistema stampa il messaggio di stato: "La password è stata cambiata!"
 
-9. Il sistema reindirizza l'utente alla schermata di *Home* 
+10. L'utente clicca il tasto *Ok*
+
+11. Il sistema reindirizza l'utente alla schermata di *Home* 
 
 ### Postcondizioni 
 
@@ -644,19 +651,20 @@ Il seguente caso d'uso permette all'utente con i permessi da "Dipendente" di ric
 
 * L'utente deve essere loggato come "Dipendente"
 * L'utente non deve aver raggiunto il massimo numero di giorni di astensione
-* L'utente deve aver cliccato sul tasto *Richiedi Astensione*
 
 ### Flusso di eventi
 
-1. Il sistema mostra l'interfaccia della richiesta astensione 
+1. L'utente clicca sul tasto *Richiedi Astensione*
 
-2. L'utente inserisce il periodo di astensione (giorno di inizio e fine) e le motivazioni.
+2. Il sistema mostra l'interfaccia della richiesta astensione 
 
-3. L'utente clicca sul tasto *Conferma*  
+3. L'utente inserisce il periodo di astensione (giorno di inizio e fine) e le motivazioni.
 
-4. Il sistema invia una notifica al datore di lavoro e aggiorna i dati sul DBMS 
+4. L'utente clicca sul tasto *Conferma*  
 
-5. L'utente viene reindirizzato nella schermata di *Home*
+5. Il sistema invia una notifica al datore di lavoro e aggiorna i dati sul DBMS 
+
+6. L'utente viene reindirizzato nella schermata di *Home*
 
 ### Postcondizioni 
 
@@ -688,17 +696,18 @@ Il seguente caso d'uso permette all'utente avente i permessi da datore di lavoro
 
 * L'utente deve essere loggato come "Datore di Lavoro"
 * Il sistema deve aver mostrato a video l'interfaccia della notifica della richiesta di astensione (vedi caso d'uso [visualizza notifica](#visualizza-notifica))
-* L'utente deve aver cliccato sul tasto *Conferma Richiesta* 
 
 ### Flusso eventi
 
-1. Il sistema manda una richiesta al DBMS per confermare le ferie
+1. L'utente clicca sul tasto *Conferma Richiesta*
 
-2. Il sistema mostra il messaggio di informazione: "La richiesta è stata accettata con successo!"
+2. Il sistema manda una richiesta al DBMS per confermare le ferie
 
-3.  L'utente clicca sul tasto *OK* del messaggio per confermarne la visione
+3. Il sistema mostra il messaggio di informazione: "La richiesta è stata accettata con successo!"
 
-4. Il sistema invia una notifica per informare il dipendente della conferma
+4.  L'utente clicca sul tasto *OK* del messaggio per confermarne la visione
+
+5. Il sistema invia una notifica per informare il dipendente della conferma
 
 ### Postcondizioni 
 
@@ -732,17 +741,18 @@ Il seguente caso d'uso permette all'utente avente i permessi da datore di lavoro
 
 * L'utente deve essere loggato come "Datore di Lavoro"
 * Il sistema deve aver mostrato a video l'interfaccia della notifica della richiesta di astensione (vedi caso d'uso [visualizza notifica](#visualizza-notifica))
-* L'utente deve aver cliccato sul tasto *Rifiuta Richiesta*
 
 ### Flusso eventi
 
-1. Il sistema invia una notifica inbox per informare il dipendente 
+1. L'utente clicca sul tasto *Rifiuta Richiesta* 
 
-2. Il sistema mostra un messaggio di informazione a video per informare l'utente che l'operazione è riuscita.
+2. Il sistema invia una notifica inbox per informare il dipendente 
 
-3. L'utente clicca il tasto *Ok* e viene reindirizzato alla schermata di *Home*
+3. Il sistema mostra un messaggio di informazione a video per informare l'utente che l'operazione è riuscita.
+
+4. L'utente clicca il tasto *Ok* e viene reindirizzato alla schermata di *Home*
    
-4. L'utente clicca sul tasto *OK* del messaggio per confermarne la visione
+5. L'utente clicca sul tasto *OK* del messaggio per confermarne la visione
 
 ### Postcondizioni 
 
@@ -775,9 +785,10 @@ Il seguente caso d'uso permette all'utente con i permessi da "Datore di lavoro" 
 ### Precondizioni
 
 * L'utente deve essere loggato come "Datore di lavoro"
-* L'utente deve aver cliccato sull'icona *Visualizza Trimestre*
 
 ### Flusso di eventi
+
+1. L'utente clicca sull'icona *Visualizza Trimestre*
 
 1. Il sistema richiede al DBMS per ogni servizio offerto dall'azienda tutti i turni di tutto il trimestre
 
@@ -902,9 +913,10 @@ Il seguente caso d'uso permette al dipendente di dimostrare la sua presenza in o
 
 * Il sistema ha mandato un messaggio di conferma quando il dipendente ha badgato
 * Il dipendente ha sforato il tempo limite per l'ingresso in orario
-* Il dipendente ha cliccato sul tasto *Rileva Presenza Da Remoto*
 
 ### Flusso eventi
+
+1. L'utente clicca sul tasto *Rileva Presenza da Remoto*
 
 1. Il messaggio di conferma con le informazioni sul turno e sul dipendente viene ricevuto
 
@@ -948,9 +960,11 @@ Il seguente caso d'uso permette al generico utente di visualizzare la lista dell
 
 ### Precondizioni 
 
-* L'utente ha cliccato sul tasto per *visualizzare tutte le notifiche*
+* Il sistema ha mostrato a video l'interfaccia *Home*
 
 ### Flusso Eventi 
+
+1. L'utente ha cliccato sul tasto *Visualizza tutte le notifiche*
 
 1. Il sistema manda una richiesta di lettura al DBMS per ogni notifica associata all'utente
 
@@ -986,9 +1000,11 @@ Il seguente caso d'uso permette al generico utente di visualizzare una notifica
 
 ### Precondizioni 
 
-* L'utente ha [visualizzato la lista delle notifiche](#visualizza-lista-notifiche) inbox e cliccato sulla notifica da visualizzare
+* L'utente ha [visualizzato la lista delle notifiche](#visualizza-lista-notifiche) inbox 
 
 ### Flusso Eventi
+
+1. L'utente clicca sulla notifica da visualizzare
 
 1. Il sistema manda una richiesta di lettura al DBMS 
 
