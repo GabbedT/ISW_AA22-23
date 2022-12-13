@@ -878,12 +878,11 @@ Il seguente caso d'uso permette al dipendente di dimostrare la sua presenza in o
 
 ### Precondizioni
 
-* Il sistema ha mandato un messaggio di conferma quando il dipendente ha badgato
 * Il dipendente deve aver badgato entro 10 minuti dall'inizio del turno
 
 ### Flusso eventi
 
-1. Il messaggio di conferma con le informazioni sul turno e sul dipendente viene ricevuto
+1. Il dipendente badga, il sistema genera un messaggio di conferma con le informazioni sul turno e sul dipendente viene ricevuto
 
 2. Scrivi sul corrispondente turno nel DBMS l'informazione sulla rilevazione della presenza (in orario)
 
@@ -911,14 +910,13 @@ Il seguente caso d'uso permette al dipendente di dimostrare la sua presenza in o
 
 ### Precondizioni
 
-* Il sistema ha mandato un messaggio di conferma quando il dipendente ha badgato
-* Il dipendente ha sforato il tempo limite per l'ingresso in orario
+* Il sistema ha mostrato a video l'interfaccia *Home*
 
 ### Flusso eventi
 
 1. L'utente clicca sul tasto *Rileva Presenza da Remoto*
 
-1. Il messaggio di conferma con le informazioni sul turno e sul dipendente viene ricevuto
+1. Il messaggio di conferma con le informazioni sul turno e sul dipendente viene generato
 
 2. Scrivi sul corrispondente turno nel DBMS l'informazione sulla rilevazione della presenza (in ritardo)
 
