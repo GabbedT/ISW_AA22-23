@@ -966,7 +966,7 @@ Il seguente caso d'uso permette al generico utente di visualizzare la lista dell
 
 1. Il sistema manda una richiesta di lettura al DBMS per ogni notifica associata all'utente
 
-2. Il sistema stampa a schermo solo il nome e il tipo della notifica per ogni notifica prelevata dal DBMS
+2. Il sistema stampa a schermo tutte le notifiche prelevate, solo il nome e il tipo della notifica viene visualizzata nella lista
 
 ### Postcondizioni
 
@@ -1041,7 +1041,7 @@ Il seguente caso d'uso permette al sistema di inviare una notifica ad un generic
 
 ### Flusso Eventi
 
-1. Riempi i campi della notifica e setta il tipo 
+1. Il sistema riempie i campi della notifica e setta il tipo 
 
 2. Manda una richiesta al DBMS per creare un'entità notifica
 
