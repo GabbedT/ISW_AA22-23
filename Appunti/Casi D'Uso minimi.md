@@ -309,25 +309,23 @@ Il seguente caso d'uso permette al sistema di eliminare gli account dei dipenden
 
 ### Precondizioni 
 
-* Il trimestre deve essere finito (primo giorno del trimestre successivo)
-
 ### Flusso Eventi 
 
-* Il sistema manda una richiesta al DBMS e preleva i dati relativi ai dipendenti
+1. Il sistema controlla il tempo periodicamente 
 
-* Il sistema controlla la flag associata al licenziamento
+2. **SE** è il primo del trimestre:
+   * Il sistema manda una richiesta al DBMS e preleva i dati relativi ai dipendenti
+   * Il sistema controlla la flag associata al licenziamento
+   * Il sistema manda una richiesta di eliminazione per tutti i dipendenti che hanno la flag settata
 
-* Il sistema manda una richiesta di eliminazione per tutti i dipendenti che hanno la flag settata
+3. **ALTRIMENTI**:
+   * Non eseguire azioni
 
 ### Postcondizioni 
 
 * Il sistema ha eliminato tutti gli account degli impiegati in attesa del licenziamento
 
 ### Errori
-
-* Il sistema non riesce a connettersi con il DBMS: 
-    - Il sistema semplicemente tenta di riconnettersi al DBMS
-    - L'azione viene ripetuta per 50 volte, alla fine delle quali viene mostrato il messaggio di errore: "Errore durante la connessione con il database"
 
 
 
@@ -904,17 +902,15 @@ Il seguente caso d'uso permette al dipendente di dimostrare la sua presenza in o
 
 ### Attori 
 
-* Dipendente
 * DBMS
 * Tempo
 
 ### Precondizioni
 
 * Il sistema ha mostrato a video l'interfaccia *Home*
+* L'utente ha cliccato sul tasto *Rileva Presenza da Remoto*
 
 ### Flusso eventi
-
-1. L'utente clicca sul tasto *Rileva Presenza da Remoto*
 
 1. Il messaggio di conferma con le informazioni sul turno e sul dipendente viene generato
 
@@ -1070,26 +1066,15 @@ Il seguente caso d'uso permette al sistema di eliminare una notifica
 
 ### Attori 
 
-* Tempo
 * DBMS 
 
 ### Precondizioni
 
-* Il sistema ha ricevuto una richiesta periodica di controllo notifiche
+* L'utente ha cliccato sulla notifica o nel caso di una richiesta di astensione l'utente deve aver dato l'esito ed è uscito dall'interfaccia di visualizzazione notifica
 
 ### Flusso Eventi
 
 1. Il sistema manda una richiesta di lettura al DBMS 
-
-2. Per ogni notifica letta controlla lo stato (letta oppure non letta)
-
-3. **SE** la notifica è stata letta:
-    - Controlla la data di lettura
-    - Confronta con la data del sistema
-    - Elimina la notifica se la differenza tra la data del sistema e quella di lettura è maggiore di 1 mese
-
-4. **ALTRIMENTI**:
-    - Non effettuare alcuna eliminazione 
 
 ### Postcondizioni 
 
