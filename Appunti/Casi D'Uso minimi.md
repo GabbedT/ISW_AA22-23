@@ -341,7 +341,6 @@ Questo caso d'uso permette al sistema di calcolare lo stipendio per un dipendent
 
 ### Attori
 
-* Tempo
 * DBMS 
 
 ### Precondizioni
