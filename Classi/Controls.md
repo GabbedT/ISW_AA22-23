@@ -1,60 +1,107 @@
 ## UserControl
+
 Gestisce le funzionalità del utente generico
 
-Funzioni *private*
-* **Employee : getPersonalData()**
+### Funzioni *Private*
 
-Funzioni *public*
-* **confirmedVisualization()**
-* **showPersonalData()**
-* **retrieveCredentials()**
-* **modifyPassword(String oldPass, String newPass, String newPassRep)**
+* Preleva i dati personali dal DBMS: (**Employee : getPersonalData()**)
+
+### Funzioni *Public*
+
+*Create*
+
+* Visualizza lista notifiche: **createNotificationList()**
+
+*General*
+
+* Conferma la visualizzazione del messaggio: **confirmVisualization()**
+
   
+&nbsp; 
+
+--- 
 
 ## EmployeeControl
 Gestisce tutte le funzionalità correlate con l'utente impiegato
 
-Funzioni *public*: 
-* **detectPresence()**
-* **detectRemotePresence()**
+### Funzioni *Public*: 
 
+*Create*
+
+* Mostra l'interfaccia per visualizzare i dati personali: **createEmployeeDataModule()**
+* Mostra l'interfaccia per richiedere un'astensione: **createRequestAbstensionModule()**
+
+*General*
+
+* Rileva presenza: **detectPresence()**
+* Rileva presenza da remoto: **detectRemotePresence()**
+
+
+&nbsp; 
+
+--- 
 
 ## EmployerControl
+
 Gestisce tutte le funzionalità correlate con il datore di lavoro
 
-Funzioni *private*: 
+### Funzioni *Private*:
+
 * Preleva un turno in base alla data: (**Shift : getShift(Data)**)
 * Controlla la validità dei dati del nuovo impiegato: (**Bool : checkDataValidity(Employee)**)
 
-Funzioni *public*:
+### Funzioni *Public*:
+
+*Create*
+
+* Mostra l'interfaccia per l'assunzione di un nuovo impiegato: **createHireEmployeeModule()**
+* Mostra la turnazione completa: **createShiftModule()**
+* Mostra l'interfaccia per la ricerca un impiegato: (**createSearchEmployeeModule()**)
+* Mostra i dati dell'impiegato: **createEmployeeData(Employee)**
+
+*General*
+
 * Accetta richiesta di astensione: (**acceptAbstensionRequest(Bool)**)
-* Ricerca un impiegato con nome e cognome: (**searcEmployee(String)**)
-* Mostra i dati dell'impiegato: **showEmployeeData(Employee)**
-* Mostra la turnazione completa: **showShift()**
+* Ricerca un impiegato con nome e cognome: (**searchEmployee(String)**)
 * Assumi impiegato: **hireEmployee(Employee)**
 * Licenzia impiegato: **fireEmployee(Employee)**
 
+&nbsp; 
+
+--- 
 
 ## AccountControl
 Gestisce tutte le funzionalità correlate con la connessione dell'account
 
-Funzioni *private*
+### Funzioni *Private*
 * Controlla se le credenziali inserite sono corrette: **Bool : checkCredentialsValidity()**
+* Controlla se la vecchia la vecchia password è corretta e le due nuove password inserite corrispondono: **Bool : checkModification()**
 
-Funzioni *public*
+### Funzioni *Public*
+
+*Create*
+
+* Mostra l'interfaccia di recupero credenziali: **createRetrieveCredentialsModule()**
+
+*General*
+
 * Login account: **login(Credentials)**
 * Logout account: **logout()**
+* Modifica password: **modifyPassword(String oldPass, String newPass, String newPassRep)**
   
+&nbsp; 
+
+--- 
 
 ## SystemControl
 Gestisce tutte le funzionalità di sistema (check e azioni periodici)
 
-Funzioni *public*
+### Funzioni *Private*
 * Chiedi il tempo: **Data : askTime()**
 
-Funzioni *public*
+### Funzioni *Public*
 * Genera turnazione: **generateShift()**
-* Calcola stipendio: **computeSalary(int baseSalary, int expectedHours, int workingHours)**
+* Calcola stipendio: **int : computeSalary(int baseSalary, int expectedHours, int workingHours)**
 * Valida account impiegato: **validateAccount(Employee)**
 * Elimina account dal DBMS: **deleteAccount(Employee)**
 * Invia notifica: **sendNotification()**
