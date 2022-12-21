@@ -5,8 +5,8 @@
 Mette a disposizione tutti i servizi principali dell'interfaccia *Home*
 
 * Logout: (**logout()**)
-* Visualizza notifiche: (**showNotificationsModule()**)
-* Modifica password: (**showModifyPasswordModule()**)
+* Visualizza notifiche: (**clickNotificationsModule()**)
+* Modifica password: (**clickModifyPasswordModule()**)
 
 L'interfaccia home non ha il tasto per andare nell'interfaccia precedente
 
@@ -18,9 +18,9 @@ L'interfaccia home non ha il tasto per andare nell'interfaccia precedente
 
 Mette a disposizione tutti i servizi principali del datore di lavoro
 
-* Assumi impiegato: (**showHireEmployeeModule()**)
-* Visualizza turnazione: (**showShiftModule()**)
-* Cerca dipendente: (**showSearchEmployeeModule()**)
+* Assumi impiegato: (**clickHireEmployeeModule()**)
+* Visualizza turnazione: (**clickShiftModule()**)
+* Cerca dipendente: (**clickSearchEmployeeModule()**)
 
 &nbsp; 
 
@@ -30,9 +30,9 @@ Mette a disposizione tutti i servizi principali del datore di lavoro
 
 Mette a disposizione tutti i servizi principali del datore di lavoro
 
-* Rileva presenza da remoto: (**showDetectRemotePresenceModule()**)
-* Visualizza dati personali: (**showEmployeeDataModule()**)
-* Richiedi astensione: (**showRequestAbstensionModule()**)
+* Rileva presenza da remoto: (**clickDetectRemotePresenceModule()**)
+* Visualizza dati personali: (**clickMyProfileModule()**)
+* Richiedi astensione: (**clickRequestAbstensionModule()**)
 
 &nbsp; 
 
@@ -42,6 +42,14 @@ Mette a disposizione tutti i servizi principali del datore di lavoro
 ## Controllo Sistema
 
 **DBMSBoundary**
+
+Classi wrapper (X è il nome della classe entity): 
+
+* Preleva dal DBMS un'entità, restituisce un'array di classi in base a quante entity sono state trovate nel DBMS: (**X[] : getX(X)**)
+* Modifica nel DBMS un'entità: (**updateX(X)**)
+* Inserisci nel DBMS un'entità: (**addX(X)**)
+* Elimina un'entità nel DBMS: (**deleteX(X)**)
+
 
 Si interfaccia con il DBMS, esegue:
 
@@ -106,7 +114,7 @@ Stampa un messaggio di informazione.
 Mette a disposizione il servizio di login ad un generico utente
 
 * Conferma le credenziali: (**confirmLoginCredentials()**)
-* Recupera le credenziali: (**showRetrieveCredentialsModule()**)
+* Recupera le credenziali: (**clickRetrieveCredentialsModule()**)
 
 &nbsp; 
 
@@ -126,7 +134,7 @@ Mette a disposizione il servizio per recuperare le credenziali ad un generico ut
 
 Mette a disposizione il servizio per modificare la password ad un generico utente. 
 
-* Conferma le informazioni per il recupero (**confirmInfo()**)
+* Conferma le informazioni per il recupero (**confirmModification()**)
 
 &nbsp; 
 
@@ -144,11 +152,22 @@ Mette a disposizione un'interfaccia per specificare le informazioni sul nuovo im
 
 --- 
 
+**EmployeePreviewModule**
+
+Mette a disposizione un'interfaccia di preview del dipendente
+
+* Visualizza i dati completi del dipendente (**clickEmployeeData()**)
+
+&nbsp; 
+
+--- 
+
+
 **EmployeeDataModule**
 
 Mette a disposizione un'interfaccia per visualizzare i dati dell'impiegato, è un'interfaccia utilizzabile sia per visualizzare dati di altri impiegati (dal datore) sia per visualizzare i propri dati (dall'utente). 
 
-* Licenzia dipendente se a visualizzare l'interfaccia è il datore di lavoro: (**fireEmployee()**)
+* Licenzia dipendente se a visualizzare l'interfaccia è il datore di lavoro: (**clickFireEmployee()**)
 
 &nbsp; 
 
@@ -167,10 +186,16 @@ Mette a disposizione un'interfaccia per la ricerca del dipendente.
 
 ## Gestione Turni
 
+**FullShiftModule** 
+
+Interfaccia che permette al datore di visualizzare l'intera turnazione
+
+
 **AbstentionRequestModule**
 
 Mette a disposizione un'interfaccia per la richiesta di astensione per il dipendente. 
 
+* Inserisci i dati per la richiesta: (**insertAbstentionData(Date, Date)**)
 * Conferma i data per la richiesta: (**confirmAbstentionRequest()**)
 
 &nbsp; 
@@ -179,7 +204,14 @@ Mette a disposizione un'interfaccia per la richiesta di astensione per il dipend
 
 ## Gestione Notifiche
 
-**GenericNotificationModule**
+**NotificationListModule**
+
+Mette a disposizione all'utente generico un'interfaccia per visualizzare tutte le notifiche
+
+* Visualizza notifica: (**clickNotification()**)
+
+
+**NotificationModule**
 
 Mette a disposizione un'interfaccia per visualizzare una generica notifica.  
 
@@ -187,7 +219,7 @@ Mette a disposizione un'interfaccia per visualizzare una generica notifica.
 
 --- 
 
-**AbstentionRequestNotificationModule**
+**AbstentionNotificationModule**
 
 Mette a disposizione un'interfaccia (esclusiva per il datore di lavoro) per visualizzare una richiesta di astensione del dipendente. 
 

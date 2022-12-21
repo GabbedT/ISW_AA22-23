@@ -583,11 +583,11 @@ Il seguente caso d'uso permette all'utente di modificare la propria password
 
 5. L'utente reinserisce la nuova password nel riquadro corrispondente
 
-6. Il sistema controlla se le nuove password coincidono
+6. L'utente clicca sul tasto *Conferma*
 
-7. Il sistema controlla se la vecchia password inserita è corretta
+7. Il sistema controlla se le nuove password coincidono
 
-8. L'utente clicca sul tasto *Conferma*
+8. Il sistema controlla se la vecchia password inserita è corretta
 
 9. Il sistema stampa il messaggio di stato: "La password è stata cambiata!"
 
@@ -615,11 +615,12 @@ Il seguente caso d'uso permette all'utente di modificare la propria password
 
 
 
-&nbsp; 
 
 ---
 
+&nbsp; 
 
+&nbsp; 
 
 # Gestione Turni
 
