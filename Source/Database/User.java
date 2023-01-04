@@ -5,15 +5,29 @@ public class User {
     /* Class attributes */
     private String name, surname;
     private String email, password;
+    private char gender;
     private int ID;
 
 
+    /**
+     * Default constructor
+     */
     public User() {
         this.name = "Default";
         this.surname = "Default";
         this.email = "Default";
         this.password = "Default";
-        this.ID = 0xFFFF_FFFF;
+        this.gender = 'X';
+        this.ID = Integer.MAX_VALUE;
+    }
+
+    public User(User user) {
+        this.name = user.getName();
+        this.surname = user.getSurname();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.gender = user.getGender();
+        this.ID = user.getID();
     }
 
     /**
@@ -25,12 +39,13 @@ public class User {
      * @param email User email to access his account
      * @param password User password to access his account
      */
-    public User(int ID, String name, String surname, String email, String password) { 
+    public User(int ID, String name, String surname, String email, String password, char gender) { 
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
-        this.ID = ID;
+        setGender(gender);
+        setID(ID);
     }
 
 
@@ -44,14 +59,15 @@ public class User {
      * @return The name of the user
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
      * Simple set method for name
      * 
      * @param name The name of the user
-     * @return Class User for subsequent set calls
+     * 
+     * @return Class User handle for subsequent set calls, returns null if any error occurred
      */
     public User setName(String name) {
         this.name = name;
@@ -65,14 +81,15 @@ public class User {
      * @return The surname of the user
      */
     public String getSurname() {
-        return surname;
+        return this.surname;
     }
 
     /**
      * Simple set method for surname
      * 
      * @param surname The surname of the user
-     * @return Class User for subsequent set calls
+     * 
+     * @return Class User handle for subsequent set calls, returns null if any error occurred
      */
     public User setSurname(String surname) {
         this.surname = surname;
@@ -86,16 +103,17 @@ public class User {
      * @return The email of the user
      */
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     /**
      * Simple set method for email 
      * 
      * @param mail The email of the user
-     * @return Class User for subsequent set calls
+     * 
+     * @return Class User handle for subsequent set calls, returns null if any error occurred
      */
-    public User setMail(String email) {
+    public User setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -107,14 +125,15 @@ public class User {
      * @return The email of the user
      */
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     /**
      * Simple set method for password 
      * 
      * @param password The password of the user
-     * @return Class User for subsequent set calls
+     * 
+     * @return Class User handle for subsequent set calls, returns null if any error occurred
      */
     public User setPassword(String password) {
         this.password = password;
@@ -128,17 +147,52 @@ public class User {
      * @return The email of the user
      */
     public int getID() {
-        return ID;
+        return this.ID;
     }
 
     /**
      * Simple set method for ID 
      * 
      * @param ID The ID of the user
-     * @return Class User for subsequent set calls
+     * 
+     * @return Class User handle for subsequent set calls, returns null if any error occurred
      */
     public User setID(int ID) {
-        this.ID = ID;
-        return this;
+        if (ID > 0) {
+            this.ID = ID;
+
+            return this;
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
+     * Simple get method for gender
+     * 
+     * @return The gender of the User
+     */
+    public char getGender() {
+        return gender;
+    }
+
+    /**
+     * Simple set method for gender 
+     * 
+     * @param gender The gender of the user in upper case (M or F)
+     * 
+     * @return Class User handle for subsequent set calls, returns null if any error occurred
+     */
+    public User setGender(char gender) {
+        char tmpGender = Character.toUpperCase(gender);
+
+        if (tmpGender == 'M' || tmpGender == 'F') {
+            this.gender = tmpGender;
+
+            return this;
+        } else {
+            return null;
+        }
     }
 }
