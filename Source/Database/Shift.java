@@ -196,7 +196,7 @@ public class Shift {
      * @return Class Shift handle for subsequent set calls, returns null if any error occurred
      */
     public Shift setPriorityLevel(int priorityLevel) {
-        if ((priorityLevel > 1) || (priorityLevel < 4)) {
+        if ((priorityLevel >= 1) || (priorityLevel <= 4)) {
             this.priorityLevel = priorityLevel;
 
             return this;
@@ -219,6 +219,10 @@ public class Shift {
         int hour = Integer.parseInt(time.substring(0, 1));
         int minutes = Integer.parseInt(time.substring(3, 4));
 
+        if (time.length() > 6) {
+            return false;
+        }
+
         /* Check if the hour is bigger than 23:59 */
         if (hour > 23 || hour < 0) {
             System.err.println("Illegal hour inserted: " + Integer.toString(hour));
@@ -228,7 +232,7 @@ public class Shift {
             System.err.println("Illegal minute inserted: %d " + Integer.toString(minutes));
             
             return false;
-        }
+        } 
 
         return true;
     }

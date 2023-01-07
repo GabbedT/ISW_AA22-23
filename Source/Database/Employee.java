@@ -15,8 +15,16 @@ public class Employee extends User {
         super();
         this.expectedWorkHours = 144;
         this.finalWorkHours = 0;
-        this.salary = 0;
+        this.salary = 1;
         this.hourlySalary = 0.0F;
+    }
+
+    public Employee(Employee employee) {
+        super(employee.getID(), employee.getName(), employee.getSurname(), employee.getEmail(), employee.getPassword(), employee.getGender());
+
+        this.salary = employee.getSalary();
+        this.expectedWorkHours = employee.getExpectedWorkHours();
+        this.finalWorkHours = employee.getFinalWorkHours();
     }
 
     
@@ -39,6 +47,7 @@ public class Employee extends User {
     public Employee(int ID, String name, String surname, String email, String password, char gender, int salary, int expWH, int finWH) {
         super(ID, name, surname, email, password, gender);
         this.finalWorkHours = finWH;
+        this.expectedWorkHours = expWH;
 
         setSalary(salary);
         setExpectedWorkHours(expWH);
@@ -78,7 +87,7 @@ public class Employee extends User {
     }
 
     /**
-     * Simple set method for salary. It compute the hourly salary and check if 
+     * Simple set method for salary. It computes the hourly salary and check if
      * it's above the minimum. If it's not assign the variables to their minimum
      * values. 
      * 
@@ -186,5 +195,10 @@ public class Employee extends User {
         } else {
             return (int) (this.finalWorkHours * this.hourlySalary);
         }
+    }
+
+
+    public String toString() {
+        return super.toString() + "\nSalary: " + this.salary + "\nExpected Work Hours: " + this.expectedWorkHours + "\nFinal Work Hours: " + this.finalWorkHours;
     }
 }

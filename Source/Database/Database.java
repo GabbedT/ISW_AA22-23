@@ -2,6 +2,7 @@ package Database;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.lang.Class;
 
 public class Database {
 
@@ -11,16 +12,42 @@ public class Database {
     private Statement query;
     private ResultSet resultQuery;
 
+    public static void main(String[] args) {
+        Database DBMS = new Database("javaapp_db", "postgres", "DBMS_Password");
+
+//        Employee employee = new Employee(3, "Andrea", "Raineri", "anaitor2001@gmail.com", "Hidrex", 'M', 10000, 80, 80);
+//
+//        if(DBMS.addEmployee(employee)) {
+//            System.out.println("Added employee!");
+//        } else {
+//            System.out.println("Failed insertion!");
+//        }
+
+        User usr = DBMS.getUser("anaitor2001@gmail.com", "Hidrex");
+
+        if (usr == null) {
+            System.out.println("Error fetching user!");
+        } else {
+            System.out.println(usr.toString());
+        }
+
+
+
+        Employee employee = DBMS.getEmployee(usr);
+
+        System.out.println("\n\n" + employee.toString());
+    }
+
 
     /**
      * Constructor method of the class, it connects the local PostgreSQL database
      * to the application code. 
      */
-    public Database() {
+    public Database(String databaseName, String username, String password) {
         try {
             /* Connect to PostgreSQL database */
             Class.forName("org.postgresql.Driver");
-            DBMS = DriverManager.getConnection("jdbc:postgresql://localhost:5432/testdb", "postgres", "DBMS_Password");
+            DBMS = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + databaseName, username, password);
         } catch (Exception connExc) {
             /* Catch connection exception */
             connExc.printStackTrace();
@@ -28,7 +55,7 @@ public class Database {
             System.exit(0);
         }
 
-        System.out.println("Connection enstablished!");
+        System.out.println("Connection established!");
     }
 
 
@@ -37,14 +64,14 @@ public class Database {
 //----------------------//
 
     /**
-     * Retrieve an USER row from the database. 
+     * Retrieve a USER row from the database.
      * Used for login.
      * 
      * @param loginEmail The email of the user.
      * @param loginPassword The password of the user.
      * 
      * @return The USER row found. if no rows were found in 
-     * the database or an exception occured the returned value is null 
+     * the database or an exception occurred the returned value is null
      */
     public User getUser(String loginEmail, String loginPassword) {
         /* Result container */
@@ -57,11 +84,17 @@ public class Database {
             /* Execute the query, retrieve all the Employee
              * rows from the database */
             query = DBMS.createStatement();
-            resultQuery = query.executeQuery(
-                "SELECT *" + 
-                "FROM User" + 
-                "WHERE Email = " + loginEmail + "AND Password = " + loginPassword
-            );
+            
+            String queryString = "SELECT * " +
+                                 "FROM UserApp " +
+                                 "WHERE Email = ? AND Password = ? ";
+            
+            PreparedStatement statement = DBMS.prepareStatement(queryString);
+
+            statement.setString(1, loginEmail);
+            statement.setString(2, loginPassword);
+
+            resultQuery = statement.executeQuery();
 
             /* Select the right Employee out of all the rows */
             while (resultQuery.next()) {
@@ -71,6 +104,7 @@ public class Database {
                 usrDB.setName(resultQuery.getString("Name"));
                 usrDB.setSurname(resultQuery.getString("Surname"));
                 usrDB.setID(resultQuery.getInt("ID"));
+                usrDB.setGender(resultQuery.getString("Gender").charAt(0));
                 usrDB.setEmail(loginEmail);
                 usrDB.setPassword(loginPassword); 
             }
@@ -107,23 +141,29 @@ public class Database {
     public ArrayList<Employee> getEmployee(String nameEmployee, String surnameEmployee) {
         /* Result containers */
         Employee empDB = new Employee();
-        ArrayList<Employee> empListDB = new ArrayList<Employee>();
+        ArrayList<Employee> empListDB = new ArrayList<>();
         
         try {
             /* Execute the query, retrieve all the Employee
              * rows from the database */
             query = DBMS.createStatement();
-            resultQuery = query.executeQuery(
-                "SELECT *" + 
-                "FROM Employee Emp, User Usr" + 
 
-                /* Join the User with the Employee and find partial matches */
-                "WHERE (Usr.ID = Emp.EmployeeID) AND (Usr.Name = " + nameEmployee + "%) " + "AND (UsrSurname = " + surnameEmployee + "%)"
-            );
+            String queryString = "SELECT * " +
+                                 "FROM Employee Emp JOIN UserApp Usr ON (Emp.EmployeeID = Usr.ID) " +
+                                 /* Join the User with the Employee and find partial matches */
+                                 "WHERE (Usr.Name LIKE ? ) OR (Usr.Surname LIKE ? )";
+
+            PreparedStatement statement = DBMS.prepareStatement(queryString);
+
+            statement.setString(1, nameEmployee);
+            statement.setString(2, surnameEmployee);
+
+            resultQuery = statement.executeQuery();
 
             /* Select the right Employee out of all the rows */
             while (resultQuery.next()) {
                 /* Fill Employee information */
+                empDB.setID(resultQuery.getInt("ID"));
                 empDB.setName(resultQuery.getString("Name"));
                 empDB.setSurname(resultQuery.getString("Surname"));
                 empDB.setGender((resultQuery.getString("Gender").charAt(0)));
@@ -132,9 +172,9 @@ public class Database {
                 empDB.setExpectedWorkHours(resultQuery.getInt("ExpectedWorkHours"));
                 empDB.setFinalWorkHours(resultQuery.getInt("FinalWorkHours"));
                 empDB.setEmail(resultQuery.getString("Email"));
-                empDB.setPassword(resultQuery.getString("Password")); 
+                empDB.setPassword(resultQuery.getString("Password"));
 
-                empListDB.add(empDB);
+                empListDB.add(new Employee(empDB));
             }
             
             if (empListDB.isEmpty()) {
@@ -154,10 +194,10 @@ public class Database {
 
     /**
      * Retrieve an Employee from the database based on the user fields. Used after
-     * login if the logged user is an Employee (ID > 0), retrieve more informations
+     * login if the logged user is an Employee (ID > 0), retrieve more information
      * about the User.
      * 
-     * @param user An instance of an User
+     * @param user An instance of a User
      * 
      * @return The Employee fetched or null if any error occurred
      */
@@ -166,26 +206,35 @@ public class Database {
         Employee empDB = new Employee(user);
         int numberOfRows = 0;
 
+
+        /* Check if the user is the Employer */
+        if (user.getID() == 0) {
+            System.out.println("Searching employee!");
+            return null;
+        }
+
         try {
             /* Execute the query, retrieve one Employee
              * row from the database */
             query = DBMS.createStatement();
-            resultQuery = query.executeQuery(
-                "SELECT *" + 
-                "FROM Employee" + 
 
-                /* Find partial matches */
-                "WHERE ID = " + Integer.toString(user.getID())
-            );
+            String queryString = "SELECT * " +
+                                 "FROM Employee " +
+                                 "WHERE EmployeeID = ? ";
+
+            PreparedStatement statement = DBMS.prepareStatement(queryString);
+            statement.setInt(1, user.getID());
+
+            resultQuery = statement.executeQuery();
 
             /* Extract the result of the query */
             while (resultQuery.next()) {
                 ++numberOfRows;
 
                 /* Fill remaining employee information */
-                empDB.setSalary(resultQuery.getInt("Salary"));
                 empDB.setExpectedWorkHours(resultQuery.getInt("ExpectedWorkHours"));
                 empDB.setFinalWorkHours(resultQuery.getInt("FinalWorkHours"));
+                empDB.setSalary(resultQuery.getInt("Salary"));
             }
 
             if (numberOfRows == 1) {
@@ -193,7 +242,7 @@ public class Database {
             } else if (numberOfRows == 0) {
                 System.out.println("Zero Employee rows found in database!");
 
-                return null;
+                return empDB;
             } else {
                 System.out.println("Multiple Employee rows found in database!");
 
@@ -210,11 +259,11 @@ public class Database {
     /**
      * Retrieve from the database a shift associated with an Employee
      * 
-     * @param employee The istance of an employee 
+     * @param employee The instance of an employee
      * @param shiftID A number between 1 and 6 which indicates the day of the week
      * 
      * @return The shift associated with the employee, if no rows were found in 
-     * the database or an exception occured, the returned value is null.
+     * the database or an exception occurred, the returned value is null.
      */
     public Shift getShift(Employee employee, int shiftID) {
         if (shiftID < 1 || shiftID > 12) {
@@ -233,12 +282,16 @@ public class Database {
             /* Execute the query, retrieve all the Employee
              * rows from the database */
             query = DBMS.createStatement();
-            resultQuery = query.executeQuery(
-                "SELECT sh.*" + 
-                "FROM Employee Emp, Shift Sh" + 
-                "WHERE (Emp.ID = " + employee.getID() + ") AND (Emp.ID = sh.EmployeeID) AND (Sh.ShiftID = " + 
-                        Integer.toString(shiftID) + ")"
-            );
+
+            String queryString = "SELECT Shf.*" +
+                                 "FROM Employee Emp, Shift Shf" +
+                                 "WHERE (Emp.ID = ? ) AND (Emp.ID = sh.EmployeeID) AND (Sh.ShiftID = ? )";
+
+            PreparedStatement statement = DBMS.prepareStatement(queryString);
+            statement.setInt(1, employee.getID());
+            statement.setInt(1, shiftID);
+
+            resultQuery = statement.executeQuery();
 
             while (resultQuery.next()) {
                 ++rowCount; 
@@ -273,24 +326,28 @@ public class Database {
     /**
      * Retrieve from the database all the Notifications associated with the User
      * 
-     * @param userID The ID associated with the user
+     * @param receiverID The ID associated with the user
      * 
      * @return A list of Notifications, return null if any error occurred
      */
     public ArrayList<Notification> getNotification(int receiverID) {
         /* Query result containers */
         Notification notifDB;
-        ArrayList<Notification> notifListDB = new ArrayList<Notification>();
+        ArrayList<Notification> notifListDB = new ArrayList<>();
 
         try {
             /* Execute the query, retrieve all the Notifications
              * rows associated with the User from the database */
             query = DBMS.createStatement();
-            resultQuery = query.executeQuery(
-                "SELECT *" + 
-                "FROM Notification" + 
-                "WHERE ReceiverID = " + Integer.toString(receiverID)
-            );
+
+            String queryString = "SELECT * " +
+                                 "FROM Notification " +
+                                 "WHERE ReceiverID = ? ";
+
+            PreparedStatement statement = DBMS.prepareStatement(queryString);
+            statement.setInt(1, receiverID);
+
+            resultQuery = statement.executeQuery();
 
             while (resultQuery.next()) {
                 /* Create a new notification with the corresponding ID */
@@ -326,26 +383,29 @@ public class Database {
     /**
      * Retrieve from the database all the Abstention Request notifications associated with the User
      * 
-     * @param userID The ID associated with the user
+     * @param receiverID The ID associated with the user
      * 
      * @return A list of AbstentionRequest, return null if any error occurred
      */
     public ArrayList<AbstentionRequest> AbstentionRequest(int receiverID) {
         /* Query result containers */
         AbstentionRequest absReqfDB;
-        ArrayList<AbstentionRequest> absReqListDB = new ArrayList<AbstentionRequest>();
+        ArrayList<AbstentionRequest> absReqListDB = new ArrayList<>();
 
         try {
             /* Execute the query, retrieve all the Notifications
              * rows associated with the User from the database */
             query = DBMS.createStatement();
-            resultQuery = query.executeQuery(
-                "SELECT *" + 
-                "FROM AbstentionRequest AbsReq, Notification Notif" + 
 
-                /* Join the two tables and select those with the same receiver */
-                "WHERE (AbsReq.RequestID = Notif.NotificationID) AND (ReceiverID = " + Integer.toString(receiverID) + ")"
-            );
+            String queryString = "SELECT * " +
+                    "FROM AbstentionRequest AbsReq, Notification Notif  " +
+                    "WHERE (AbsReq.RequestID = Notif.NotificationID) AND (ReceiverID = ? )";
+
+            PreparedStatement statement = DBMS.prepareStatement(queryString);
+            statement.setInt(1, receiverID);
+
+            resultQuery = statement.executeQuery();
+
 
             while (resultQuery.next()) {
                 /* Create a new notification with the corresponding ID */
@@ -401,9 +461,9 @@ public class Database {
             /* Create an SQL statement and execute an insertion */
             query = DBMS.createStatement();
 
-            /* Two insertions needs to be done, the first for the User informations
-             * the second for the Employee informations correlated with the User */
-            query.executeUpdate(DatabaseUtils.insertUser((User) row));
+            /* Two insertions needs to be done, the first for the User information
+             * the second for the Employee information correlated with the User */
+            query.executeUpdate(DatabaseUtils.insertUser(row));
             query.executeUpdate(DatabaseUtils.insertEmployee(row));
 
             return true;
@@ -449,9 +509,9 @@ public class Database {
             /* Create an SQL statement and execute an insertion */
             query = DBMS.createStatement();
 
-            /* Two insertions needs to be done, the first for the Notification informations
-             * the second for the AbstentionRequest informations correlated with the Notification */
-            query.executeUpdate(DatabaseUtils.insertNotification((Notification) row));
+            /* Two insertions needs to be done, the first for the Notification information
+             * the second for the AbstentionRequest information correlated with the Notification */
+            query.executeUpdate(DatabaseUtils.insertNotification(row));
             query.executeUpdate(DatabaseUtils.insertAbstentionRequest(row));
 
             return true;

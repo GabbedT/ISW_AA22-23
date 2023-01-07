@@ -195,4 +195,11 @@ public class User {
             return null;
         }
     }
+
+
+
+    public String toString() {
+        return "Name: " + this.name + "\nSurname: " + this.surname + "\nID: " + this.ID + "\nEmail: " + this.email + "\nPassword: " 
+               + this.password + "\nGender: " + this.gender;
+    }
 }
