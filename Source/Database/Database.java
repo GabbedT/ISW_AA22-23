@@ -15,27 +15,20 @@ public class Database {
     public static void main(String[] args) {
         Database DBMS = new Database("javaapp_db", "postgres", "DBMS_Password");
 
-//        Employee employee = new Employee(3, "Andrea", "Raineri", "anaitor2001@gmail.com", "Hidrex", 'M', 10000, 80, 80);
-//
-//        if(DBMS.addEmployee(employee)) {
-//            System.out.println("Added employee!");
-//        } else {
-//            System.out.println("Failed insertion!");
-//        }
+        Employee employee = DBMS.getEmployee("Gabriele", "Tripi").get(0);
+        System.out.println(employee.toString() + "\n\n");
 
-        User usr = DBMS.getUser("anaitor2001@gmail.com", "Hidrex");
+        Shift shift = DBMS.getShift(employee, 1);
 
-        if (usr == null) {
-            System.out.println("Error fetching user!");
-        } else {
-            System.out.println(usr.toString());
-        }
+        System.out.println(shift.toString() + "\n\n");
 
+        Notification notification = DBMS.getNotification(employee.getID()).get(0);
+        System.out.println(notification.toString() + "\n\n");
 
+        AbstentionRequest abstReq = DBMS.getAbstentionRequest(employee.getID()).get(0);
+        System.out.println(abstReq.toString() + "\n\n");
 
-        Employee employee = DBMS.getEmployee(usr);
-
-        System.out.println("\n\n" + employee.toString());
+        System.out.println("DONE");
     }
 
 
@@ -116,8 +109,6 @@ public class Database {
                 
                 return null;
             } else {
-                System.err.println("Multiple rows found in database with the same primary key!");
-
                 return null;
             }
         } catch (SQLException queryExc) {
@@ -125,7 +116,57 @@ public class Database {
 
             return null;
         }
-    } 
+    }
+
+
+    public User getUser(int userID) {
+        /* Result container */
+        User usrDB = new User();
+        int rowCount = 0;
+
+        try {
+            /* Execute the query, retrieve all the Employee
+             * rows from the database */
+            query = DBMS.createStatement();
+
+            String queryString = "SELECT * " +
+                    "FROM UserApp " +
+                    "WHERE ID = ? ";
+
+            PreparedStatement statement = DBMS.prepareStatement(queryString);
+
+            statement.setInt(1, userID);
+
+            resultQuery = statement.executeQuery();
+
+            /* Select the right Employee out of all the rows */
+            while (resultQuery.next()) {
+                ++rowCount;
+
+                /* Fill Employee information */
+                usrDB.setName(resultQuery.getString("Name"));
+                usrDB.setSurname(resultQuery.getString("Surname"));
+                usrDB.setID(resultQuery.getInt("ID"));
+                usrDB.setGender(resultQuery.getString("Gender").charAt(0));
+                usrDB.setEmail(resultQuery.getString("Email"));
+                usrDB.setPassword(resultQuery.getString("Password"));
+            }
+
+            if (rowCount == 1) {
+                return usrDB;
+            } else if (rowCount == 0) {
+                System.err.println("Zero Employee rows found in database!");
+
+                return null;
+            } else {
+                return null;
+            }
+        } catch (SQLException queryExc) {
+            queryExc.printStackTrace();
+
+            return null;
+        }
+    }
 
 
     /**
@@ -167,10 +208,9 @@ public class Database {
                 empDB.setName(resultQuery.getString("Name"));
                 empDB.setSurname(resultQuery.getString("Surname"));
                 empDB.setGender((resultQuery.getString("Gender").charAt(0)));
-                empDB.setID(resultQuery.getInt("ID"));
-                empDB.setSalary(resultQuery.getInt("Salary"));
                 empDB.setExpectedWorkHours(resultQuery.getInt("ExpectedWorkHours"));
                 empDB.setFinalWorkHours(resultQuery.getInt("FinalWorkHours"));
+                empDB.setSalary(resultQuery.getInt("Salary"));
                 empDB.setEmail(resultQuery.getString("Email"));
                 empDB.setPassword(resultQuery.getString("Password"));
 
@@ -283,13 +323,13 @@ public class Database {
              * rows from the database */
             query = DBMS.createStatement();
 
-            String queryString = "SELECT Shf.*" +
-                                 "FROM Employee Emp, Shift Shf" +
-                                 "WHERE (Emp.ID = ? ) AND (Emp.ID = sh.EmployeeID) AND (Sh.ShiftID = ? )";
+            String queryString = "SELECT * " +
+                                 "FROM Employee Emp, Shift Shf " +
+                                 "WHERE (Emp.EmployeeID = ? ) AND (Emp.EmployeeID = Shf.EmployeeID) AND (Shf.ShiftID = ? )";
 
             PreparedStatement statement = DBMS.prepareStatement(queryString);
             statement.setInt(1, employee.getID());
-            statement.setInt(1, shiftID);
+            statement.setInt(2, shiftID);
 
             resultQuery = statement.executeQuery();
 
@@ -300,8 +340,9 @@ public class Database {
                 shiftDB.setExitHour(resultQuery.getString("ExitHour"));
                 shiftDB.setStartHourEmployee(resultQuery.getString("StartHourEmployee"));
                 shiftDB.setExitHourEmployee(resultQuery.getString("ExitHourEmployee"));
-                shiftDB.setPriorityLevel(resultQuery.getInt("PriorityLevel"));
+                shiftDB.setServiceID(resultQuery.getInt("ServiceID"));
                 shiftDB.setShiftID(shiftID);
+                shiftDB.setEmployeeID(employee.getID());
             }
 
             if (rowCount == 1) {
@@ -387,7 +428,7 @@ public class Database {
      * 
      * @return A list of AbstentionRequest, return null if any error occurred
      */
-    public ArrayList<AbstentionRequest> AbstentionRequest(int receiverID) {
+    public ArrayList<AbstentionRequest> getAbstentionRequest(int receiverID) {
         /* Query result containers */
         AbstentionRequest absReqfDB;
         ArrayList<AbstentionRequest> absReqListDB = new ArrayList<>();
@@ -398,8 +439,8 @@ public class Database {
             query = DBMS.createStatement();
 
             String queryString = "SELECT * " +
-                    "FROM AbstentionRequest AbsReq, Notification Notif  " +
-                    "WHERE (AbsReq.RequestID = Notif.NotificationID) AND (ReceiverID = ? )";
+                                 "FROM AbstentionRequest AbsReq, Notification Notif  " +
+                                 "WHERE (AbsReq.RequestID = Notif.NotificationID) AND (ReceiverID = ? )";
 
             PreparedStatement statement = DBMS.prepareStatement(queryString);
             statement.setInt(1, receiverID);
@@ -444,6 +485,39 @@ public class Database {
     }
 
 
+    /**
+     * Retrieve the trimester time information from the database.
+     *
+     * @return An array of two Date object, the first one is the start of the trimester,
+     * the second one is the end. Return null if any error occurred
+     */
+    public Date[] getTrimester() {
+        /* Query result container */
+        Date[] trimester = new Date[2];
+
+        try {
+            /* Execute the query, retrieve all the Notifications
+             * rows associated with the User from the database */
+            query = DBMS.createStatement();
+
+            String queryString = "SELECT * " +
+                                 "FROM Trimester ";
+
+            PreparedStatement statement = DBMS.prepareStatement(queryString);
+
+            resultQuery = statement.executeQuery();
+
+            trimester[0] = resultQuery.getDate("StartDate");
+            trimester[1] = resultQuery.getDate("EndDate");
+
+            return trimester;
+        } catch (SQLException queryExc) {
+            queryExc.printStackTrace();
+
+            return null;
+        }
+    }
+
 
 //--------------------//
 //  ADD ROWS METHODS  //
@@ -456,7 +530,7 @@ public class Database {
      * 
      * @return Boolean value for error checking
      */
-    public Boolean addEmployee(Employee row) {
+    public void addEmployee(Employee row) {
         try {
             /* Create an SQL statement and execute an insertion */
             query = DBMS.createStatement();
@@ -465,12 +539,8 @@ public class Database {
              * the second for the Employee information correlated with the User */
             query.executeUpdate(DatabaseUtils.insertUser(row));
             query.executeUpdate(DatabaseUtils.insertEmployee(row));
-
-            return true;
         } catch (SQLException queryExc) {
             queryExc.printStackTrace();
-
-            return false;
         }
     }
 
@@ -482,17 +552,13 @@ public class Database {
      * 
      * @return Boolean value for error checking
      */
-    public Boolean addNotification(Notification row) {
+    public void addNotification(Notification row) {
         try {
             /* Create an SQL statement and execute an insertion */
             query = DBMS.createStatement();
             query.executeUpdate(DatabaseUtils.insertNotification(row));
-
-            return true;
         } catch (SQLException queryExc) {
             queryExc.printStackTrace();
-
-            return false;
         }
     }
 
@@ -504,7 +570,7 @@ public class Database {
      * 
      * @return Boolean value for error checking
      */
-    public Boolean addAbstentionRequest(AbstentionRequest row) {
+    public void addAbstentionRequest(AbstentionRequest row) {
         try {
             /* Create an SQL statement and execute an insertion */
             query = DBMS.createStatement();
@@ -513,12 +579,8 @@ public class Database {
              * the second for the AbstentionRequest information correlated with the Notification */
             query.executeUpdate(DatabaseUtils.insertNotification(row));
             query.executeUpdate(DatabaseUtils.insertAbstentionRequest(row));
-
-            return true;
         } catch (SQLException queryExc) {
             queryExc.printStackTrace();
-
-            return false;
         }
     }
 
@@ -530,17 +592,143 @@ public class Database {
      * 
      * @return Boolean value for error checking
      */
-    public Boolean addShift(Shift row) {
+    public void addShift(Shift row) {
         try {
             /* Create an SQL statement and execute an insertion */
             query = DBMS.createStatement();
             query.executeUpdate(DatabaseUtils.insertShift(row));
-
-            return true;
         } catch (SQLException queryExc) {
             queryExc.printStackTrace();
+        }
+    }
 
-            return false;
+
+    public void addTrimester(Date[] trimester) {
+        try {
+            if (trimester.length > 2) {
+                System.err.println("Array too long");
+            }
+
+            /* Create an SQL statement and execute an insertion */
+            query = DBMS.createStatement();
+            query.executeUpdate(DatabaseUtils.insertTrimester(trimester));
+        } catch (SQLException queryExc) {
+            queryExc.printStackTrace();
+        }
+    }
+
+//------------------//
+//  DELETE METHODS  //
+//------------------//
+
+    /**
+     * Remove an employee and all the associated data.
+     *
+     * @param employeeID ID of the employee to remove
+     */
+    public void deleteEmployee(int employeeID) {
+        try {
+            String queryString = "DELETE FROM Employee " +
+                                 "WHERE EmployeeID = ? ";
+
+            PreparedStatement statement = DBMS.prepareStatement(queryString);
+            statement.setInt(1, employeeID);
+
+            statement.executeUpdate();
+
+            /* Cascaded deletion */
+            deleteNotification(employeeID);
+        } catch (SQLException queryExc) {
+            queryExc.printStackTrace();
+        }
+    }
+
+    /**
+     * Delete all the shifts from the database. Used when making a new
+     * trimester shift.
+     */
+    public void deleteShift() {
+        try {
+            String queryString = "DELETE FROM Shift " +
+                                 "WHERE ShiftID = ? ";
+
+            /* Cycle through all the shifts of the week */
+            for (int i = 1; i <= 6; ++i) {
+                PreparedStatement statement = DBMS.prepareStatement(queryString);
+                statement.setInt(1, i);
+
+                statement.executeUpdate();
+            }
+        } catch (SQLException queryExc) {
+            queryExc.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Delete all the notifications associated with the employee
+     * and also all the abstention requests.
+     *
+     * @param employeeID The associated employee ID
+     */
+    public void deleteNotification(int employeeID) {
+        try {
+            /* First retrieve all the notifications ID associated
+             * with the employee */
+            String queryString = "SELECT NotificationID " +
+                                 "FROM Notification " +
+                                 "WHERE ReceiverID = ? ";
+
+            PreparedStatement queryStatement = DBMS.prepareStatement(queryString);
+            queryStatement.setInt(1, employeeID);
+
+            resultQuery = queryStatement.executeQuery();
+
+            /* Result container */
+            ArrayList<Integer> notifID = new ArrayList<>();
+
+            /* Get all the results */
+            while (resultQuery.next()) {
+                notifID.add(resultQuery.getInt("NotificationID"));
+            }
+
+            /* Delete all the notifications associated with the employee
+             * which is the receiver */
+            String deleteString = "DELETE FROM Notification " +
+                                  "WHERE ReceiverID = ? ";
+
+            PreparedStatement deleteStatement = DBMS.prepareStatement(deleteString);
+            deleteStatement.setInt(1, employeeID);
+
+            deleteStatement.executeUpdate();
+
+            /* Delete all the requests connected with the deleted
+             * notifications */
+            for (int i = 0; !notifID.isEmpty(); ++i) {
+                deleteAbstentionRequest(notifID.get(i));
+            }
+        } catch (SQLException queryExc) {
+            queryExc.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Remove an abstention request
+     *
+     * @param requestID The associated notification ID
+     */
+    public void deleteAbstentionRequest(int requestID) {
+        try {
+            String queryString = "DELETE FROM AbstentionRequest " +
+                                 "WHERE RequestID = ? ";
+
+            PreparedStatement statement = DBMS.prepareStatement(queryString);
+            statement.setInt(1, requestID);
+
+            statement.executeUpdate();
+        } catch (SQLException queryExc) {
+            queryExc.printStackTrace();
         }
     }
 }

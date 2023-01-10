@@ -1,5 +1,7 @@
 package Database;
 
+import java.sql.Date;
+
 public final class DatabaseUtils {
 
     /* DBMS Tables */
@@ -7,7 +9,8 @@ public final class DatabaseUtils {
     private static final String employeeFields = "(EmployeeID, Salary, ExpectedWorkHours, FinalWorkHours)\n";
     private static final String notificationFields = "(NotificationID, Title, Description, ReceiverID, SenderID)\n";
     private static final String abstentionRequestFields = "(RequestID, AcceptanceStatus, RequestType)\n";
-    private static final String shiftFields = "(ShiftID, StartHour, ExitHour, StartHourEmployee, ExitHourEmployee, PriorityLevel)\n";
+    private static final String shiftFields = "(ShiftID, StartHour, ExitHour, StartHourEmployee, ExitHourEmployee, ServiceID, EmployeeID)\n";
+    private static final String trimesterFields = "(StartDate, EndDate)\n";
 
 
 
@@ -66,9 +69,20 @@ public final class DatabaseUtils {
     public static String insertShift(Shift shift) {
         return "INSERT INTO Shift" + shiftFields + 
                "VALUES (" + SQLvalue(shift.getShiftID()) + "," + SQLvalue(shift.getStartHour()) + "," + SQLvalue(shift.getExitHour()) +
-                "," + SQLvalue(shift.getStartHourEmployee()) + "," + SQLvalue(shift.getExitHourEmployee()) + "," + SQLvalue(shift.getPriorityLevel()) + ")";
+                "," + SQLvalue(shift.getStartHourEmployee()) + "," + SQLvalue(shift.getExitHourEmployee()) + "," + SQLvalue(shift.getServiceID()) +
+                "," + SQLvalue(shift.getEmployeeID()) + ")";
     }
 
+    /**
+     * Insert a Trimester row into the database
+     *
+     * @param trimester A Shift object that holds the fields
+     * @return A string for the SQL statement
+     */
+    public static String insertTrimester(Date[] trimester) {
+        return "INSERT INTO Trimester" + trimesterFields +
+               "VALUES (" + SQLvalue(trimester[0]) + "," + SQLvalue(trimester[1]) + ")";
+    }
 
     /**
      * Insert a string between two apexes: 'str'
@@ -108,5 +122,16 @@ public final class DatabaseUtils {
      */
     private static String SQLvalue(Boolean val) {
         return "'" + Boolean.toString(val).toUpperCase() + "'";
+    }
+
+
+    /**
+     * Less verbose way of converting an SQL Date into a string
+     *
+     * @param date Date value to convert
+     * @return A string that represent the date value
+     */
+    private static String SQLvalue(Date date) {
+        return "'" + date.toString() + "'";
     }
 }

@@ -27,8 +27,8 @@ public class Notification {
      * 
      * @param title The title of the Notification
      * @param description The description of the Notification
-     * @param receiver The receiver User class
-     * @param sender The sender User class
+     * @param receiverID The receiver User class
+     * @param senderID The sender User class
      * @param notifID The notification ID
      */
     public Notification(String title, String description, int receiverID, int senderID, int notifID) {
@@ -173,5 +173,16 @@ public class Notification {
      */
     public static int getGlobalNotifID() {
         return globalNotifID;
+    }
+
+
+//-------------------//
+//  GENERIC METHODS  //
+//-------------------//
+
+    public String toString() {
+        return "NOTIFICATION:\nNotification ID: " + this.notifID + "\nTitle: " + this.title + "\nDescription: " +
+                this.description + "\nReceiver ID: " + this.receiverID + "\nSender ID: " + this.senderID +
+                "\nGlobal ID: " + Notification.globalNotifID;
     }
 }

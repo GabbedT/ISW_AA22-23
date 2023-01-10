@@ -22,9 +22,9 @@ public class Employee extends User {
     public Employee(Employee employee) {
         super(employee.getID(), employee.getName(), employee.getSurname(), employee.getEmail(), employee.getPassword(), employee.getGender());
 
-        this.salary = employee.getSalary();
-        this.expectedWorkHours = employee.getExpectedWorkHours();
+        this.setExpectedWorkHours(employee.getExpectedWorkHours());
         this.finalWorkHours = employee.getFinalWorkHours();
+        this.setSalary(employee.getSalary());
     }
 
     

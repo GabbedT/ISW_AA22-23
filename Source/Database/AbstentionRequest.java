@@ -3,19 +3,29 @@ package Database;
 public class AbstentionRequest extends Notification {
     
     public enum AbstentionType {
-        VACANTION (1),      /* Ferie */
+        VACATION (1),      /* Ferie */
         PARENTAL_LEAVE (2), /* Congedo parentale */
         SICK_LEAVE (3),     /* Malattia */
         STRIKE (4);         /* Sciopero */
 
         private final int value;
 
-        private AbstentionType(int value) {
+        AbstentionType(int value) {
             this.value = value;
         }
 
         public int getValue() {
             return this.value;
+        }
+
+        public String toString() {
+            switch (this.getValue()) {
+                case 1: return "Vacation";
+                case 2: return "Parental Leave";
+                case 3: return "Sick Leave";
+                case 4: return "Strike";
+                default: return "Illegal";
+            }
         }
     }
 
@@ -31,7 +41,7 @@ public class AbstentionRequest extends Notification {
         super(notifID);
 
         this.acceptanceStatus = false;
-        this.type = AbstentionType.VACANTION;
+        this.type = AbstentionType.VACATION;
     }
 
     /**
@@ -41,8 +51,7 @@ public class AbstentionRequest extends Notification {
      * @param description The description of the Notification
      * @param notifID The ID of the Notification
      * @param receiverID The receiver id 
-     * @param sender The sender id
-     * @param incID If the notification ID needs to be incremented
+     * @param senderID The sender id
      * @param accStat If the request was accepted or not
      * 
      */
@@ -62,10 +71,9 @@ public class AbstentionRequest extends Notification {
      * @param title The title of the Notification
      * @param description The description of the Notification
      * @param receiverID The receiver id 
-     * @param sender The sender id
-     * @param incID If the notification ID needs to be incremented
+     * @param senderID The sender id
      * @param accStat If the request was accepted or not
-     * 
+     * @param type Type of request
      */
     public AbstentionRequest(String title, String description, int receiverID, int senderID, Boolean accStat, AbstentionType type) {
         super(title, description, receiverID, senderID);
@@ -132,5 +140,15 @@ public class AbstentionRequest extends Notification {
         this.type = type;
 
         return this;
+    }
+
+
+//-------------------//
+//  GENERIC METHODS  //
+//-------------------//
+
+    public String toString() {
+        return "ABSTENTION REQUEST\n" + super.toString() + "\nAcceptance status: " + this.acceptanceStatus.toString() +
+                "\nRequest type: " + this.type.toString();
     }
 }

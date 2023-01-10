@@ -5,17 +5,17 @@ public class Shift {
     /* Class attributes */
     private String startHour, exitHour;
     private String startHourEmployee, exitHourEmployee;
-    private int shiftID;
-    private int priorityLevel;
+    private int shiftID, employeeID;
+    private int serviceID;
 
 
     /**
      * Default constructor
      */
     public Shift() {
-        startHour = exitHour = startHourEmployee = exitHourEmployee = "00:00";
-        shiftID = Integer.MAX_VALUE;
-        priorityLevel = 1;
+        this.startHour = this.exitHour = this.startHourEmployee = this.exitHourEmployee = "00:00";
+        this.shiftID = this.employeeID = Integer.MAX_VALUE;
+        this.serviceID = 1;
     }
 
 
@@ -27,15 +27,28 @@ public class Shift {
      * @param startEmp Employee presence detection hour
      * @param endEmp Employee exit detection hour
      * @param shID A number between 1 and 6 that indicates the day of the week
-     * @param prioLvl Priority of the shift
+     * @param srvID Service ID
      */
-    public Shift(String startH, String endH, String startEmp, String endEmp, int shID, int prioLvl) {
+    public Shift(String startH, String endH, String startEmp, String endEmp, int shID, int srvID, int empID) {
         setStartHour(startH);
         setExitHour(endH);
         setStartHourEmployee(startEmp);
         setExitHourEmployee(endEmp);
         setShiftID(shID);
-        setPriorityLevel(prioLvl);
+        setServiceID(srvID);
+        setEmployeeID(empID);
+    }
+
+
+    public Shift(String startH, String endH, int shID, int srvID, int empID) {
+        setStartHour(startH);
+        setExitHour(endH);
+        setShiftID(shID);
+        setServiceID(srvID);
+        setEmployeeID(empID);
+
+        this.startHourEmployee = "";
+        this.exitHourEmployee = "";
     }
 
 
@@ -69,6 +82,31 @@ public class Shift {
         }
     }
 
+
+    /**
+     * Simple get method for the id of the associated employee
+     *
+     * @return The value of the identification code of the associated employee
+     */
+    public int getEmployeeID() {
+        return this.employeeID;
+    }
+
+    /**
+     * Simple set method for the id of the associated employee
+     *
+     * @param employeeID Id of the associated employee
+     * @return Class Shift handle for subsequent set calls, returns null if any error occurred
+     */
+    public Shift setEmployeeID(int employeeID) {
+        if (employeeID == 0) {
+            return null;
+        } else {
+            this.employeeID = employeeID;
+
+            return this;
+        }
+    }
 
     /**
      * Simple get method for the ending hour of the shift
@@ -179,25 +217,24 @@ public class Shift {
 
 
     /**
-     * Simple get method for the priority of the shift
+     * Simple get method for the service ID
      * 
-     * @return The shift priority
+     * @return The service ID
      */
-    public int getPriorityLevel() {
-        return this.priorityLevel;
+    public int getServiceID() {
+        return this.serviceID;
     }
 
     /**
-     * Simple set method for the priority level of the shift 
+     * Simple set method for the ID of the service
      * 
-     * @param priorityLevel An integer value between 1 and 4 that indicates level priority of the job associated
-     * with the shift
+     * @param serviceID An integer value between 1 and 4 that indicates the ID of the service
      * 
      * @return Class Shift handle for subsequent set calls, returns null if any error occurred
      */
-    public Shift setPriorityLevel(int priorityLevel) {
-        if ((priorityLevel >= 1) || (priorityLevel <= 4)) {
-            this.priorityLevel = priorityLevel;
+    public Shift setServiceID(int serviceID) {
+        if ((serviceID >= 1) || (serviceID <= 4)) {
+            this.serviceID = serviceID;
 
             return this;
         } else {
@@ -235,5 +272,16 @@ public class Shift {
         } 
 
         return true;
+    }
+
+
+//-------------------//
+//  GENERIC METHODS  //
+//-------------------//
+
+    public String toString() {
+        return "SHIFT:\nShiftID: " + this.shiftID + "\nEmployeeID: " + this.employeeID + "\nServiceID " +
+                this.serviceID + "\nStart Hour: " + this.startHour + "\nExit Hour: " + this.exitHour +
+                "\nStart Hour Employee: " + this.startHourEmployee + "\nExit Hour Employee: " + this.exitHourEmployee;
     }
 }
