@@ -5,10 +5,10 @@ import java.sql.Date;
 public final class DatabaseUtils {
 
     /* DBMS Tables */
-    private static final String userFields = "(ID, Name, Surname, Email, Password, Gender)\n";
+    private static final String userFields = "(ID, Name, Surname, Email, Password, Age, BirthDay, Gender)\n";
     private static final String employeeFields = "(EmployeeID, Salary, ExpectedWorkHours, FinalWorkHours)\n";
     private static final String notificationFields = "(NotificationID, Title, Description, ReceiverID, SenderID)\n";
-    private static final String abstentionRequestFields = "(RequestID, AcceptanceStatus, RequestType)\n";
+    private static final String abstentionRequestFields = "(RequestID, StartAbstention, EndAbstention, AcceptanceStatus, RequestType)\n";
     private static final String shiftFields = "(ShiftID, StartHour, ExitHour, StartHourEmployee, ExitHourEmployee, ServiceID, EmployeeID)\n";
     private static final String trimesterFields = "(StartDate, EndDate)\n";
 
@@ -23,7 +23,7 @@ public final class DatabaseUtils {
     public static String insertUser(User usr) {
         return "INSERT INTO UserApp " + userFields + 
                "VALUES (" + SQLvalue(usr.getID()) + "," + SQLvalue(usr.getName()) + "," + SQLvalue(usr.getSurname()) + "," + SQLvalue(usr.getEmail()) +
-                "," + SQLvalue(usr.getPassword()) + "," + SQLvalue(usr.getGender()) + ")";
+               "," + SQLvalue(usr.getPassword()) + "," + SQLvalue(usr.getAge()) + "," + SQLvalue(usr.getBirthDay()) + "," + SQLvalue(usr.getGender()) + ")";
     } 
 
     /**
@@ -46,7 +46,7 @@ public final class DatabaseUtils {
     public static String insertNotification(Notification notif) {
         return "INSERT INTO Notification " + notificationFields + 
                "VALUES (" + SQLvalue(notif.getNotifID()) + "," + SQLvalue(notif.getTitle()) + "," + SQLvalue(notif.getDescription()) +
-                "," + SQLvalue(notif.getReceiverID()) + "," + SQLvalue(notif.getSenderID()) + ")";
+               "," + SQLvalue(notif.getReceiverID()) + "," + SQLvalue(notif.getSenderID()) + ")";
     }
 
     /**
@@ -57,7 +57,8 @@ public final class DatabaseUtils {
      */
     public static String insertAbstentionRequest(AbstentionRequest req) {
         return "INSERT INTO AbstentionRequest " + abstentionRequestFields + 
-               "VALUES (" + SQLvalue(req.getNotifID()) + "," + SQLvalue(req.getAcceptanceStatus()) + "," + SQLvalue(req.getTypeInt()) + ")";
+               "VALUES (" + SQLvalue(req.getNotifID()) + "," + SQLvalue(req.getStartAbstention()) + "," + SQLvalue(req.getEndAbstention()) +
+               "," + SQLvalue(req.getAcceptanceStatus()) + "," + SQLvalue(req.getTypeInt()) + ")";
     }
 
     /**
@@ -69,8 +70,8 @@ public final class DatabaseUtils {
     public static String insertShift(Shift shift) {
         return "INSERT INTO Shift" + shiftFields + 
                "VALUES (" + SQLvalue(shift.getShiftID()) + "," + SQLvalue(shift.getStartHour()) + "," + SQLvalue(shift.getExitHour()) +
-                "," + SQLvalue(shift.getStartHourEmployee()) + "," + SQLvalue(shift.getExitHourEmployee()) + "," + SQLvalue(shift.getServiceID()) +
-                "," + SQLvalue(shift.getEmployeeID()) + ")";
+               "," + SQLvalue(shift.getStartHourEmployee()) + "," + SQLvalue(shift.getExitHourEmployee()) + "," + SQLvalue(shift.getServiceID()) +
+               "," + SQLvalue(shift.getEmployeeID()) + ")";
     }
 
     /**

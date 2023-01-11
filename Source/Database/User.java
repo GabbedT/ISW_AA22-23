@@ -1,10 +1,17 @@
 package Database;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 public class User {
+
+    private static int globalUserID = 2;
     
     /* Class attributes */
     private String name, surname;
+    private Date birthDay;
     private String email, password;
+    private int age;
     private char gender;
     private int ID;
 
@@ -18,34 +25,34 @@ public class User {
         this.email = "Default";
         this.password = "Default";
         this.gender = 'X';
+        this.age = 0;
+        this.birthDay = new Date(0, 0, 0);
         this.ID = Integer.MAX_VALUE;
-    }
-
-    public User(User user) {
-        this.name = user.getName();
-        this.surname = user.getSurname();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.gender = user.getGender();
-        this.ID = user.getID();
     }
 
     /**
      * Constructor to instantiate a filled User object. 
      * 
-     * @param ID User identification code, ID must be a number bigger than 0
      * @param name User legal name
      * @param surname User legal surname
      * @param email User email to access his account
      * @param password User password to access his account
+     * @param gender User gender
+     * @param age User age
+     * @param birthDay User birth day (Date.SQL)
      */
-    public User(int ID, String name, String surname, String email, String password, char gender) { 
+    public User(String name, String surname, String email, String password, char gender, int age, Date birthDay) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
+        this.age = age;
+        this.birthDay = new Date(birthDay.getTime());
+        this.ID = globalUserID;
+
         setGender(gender);
-        setID(ID);
+
+        ++globalUserID;
     }
 
 
@@ -109,7 +116,7 @@ public class User {
     /**
      * Simple set method for email 
      * 
-     * @param mail The email of the user
+     * @param email The email of the user
      * 
      * @return Class User handle for subsequent set calls, returns null if any error occurred
      */
@@ -197,9 +204,58 @@ public class User {
     }
 
 
+    public int getAge() {
+        return this.age;
+    }
+
+    public User setAge(int age) {
+        /* Check if the user is an adult */
+        if (age < 18) {
+            return null;
+        } else {
+            this.age = age;
+
+            return this;
+        }
+    }
+
+
+    public Date getBirthDay() {
+        return this.birthDay;
+    }
+
+    public User setBirthDay(Date birthDay) {
+        Calendar currentTime = Calendar.getInstance();
+        long minYears = 568025136000L;
+
+        /* Check if the user is an adult */
+        if ((currentTime.getTimeInMillis() - birthDay.getTime()) < minYears) {
+            return null;
+        } else {
+            this.birthDay = new Date(birthDay.getTime());
+
+            return this;
+        }
+    }
+
+
+
+
+
+    public void copy(User user) {
+        this.name = user.getName();
+        this.surname = user.getSurname();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.gender = user.getGender();
+        this.ID = user.getID();
+        this.age = user.getAge();
+        this.birthDay = new Date(user.getBirthDay().getTime());
+    }
+
 
     public String toString() {
         return "Name: " + this.name + "\nSurname: " + this.surname + "\nID: " + this.ID + "\nEmail: " + this.email + "\nPassword: " 
-               + this.password + "\nGender: " + this.gender;
+               + this.password + "\nGender: " + this.gender + "\nAge: " + this.age + "\nBirth Day: " + this.birthDay.toString() + "\n\n";
     }
 }

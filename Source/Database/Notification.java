@@ -3,7 +3,7 @@ package Database;
 public class Notification {
     
     /* Class attributes */
-    private final int notifID;
+    private int notifID;
     private String title;
     private String description;
     private int receiverID, senderID;
@@ -14,11 +14,9 @@ public class Notification {
     /**
      * Default Notification constructor
      */
-    public Notification(int notifID) {
-        title = description = "Default";
-        receiverID = senderID = Integer.MAX_VALUE;
-
-        this.notifID = notifID;
+    public Notification() {
+        this.title = this.description = "Default";
+        this.receiverID = this.senderID = this.notifID = Integer.MAX_VALUE;
     }
 
 
@@ -53,7 +51,7 @@ public class Notification {
      * @param senderID The sender ID
      */
     public Notification(String title, String description, int receiverID, int senderID) {
-        ++globalNotifID;
+        incrementID();
 
         this.notifID = globalNotifID;
 
@@ -179,6 +177,10 @@ public class Notification {
 //-------------------//
 //  GENERIC METHODS  //
 //-------------------//
+
+    public void incrementID() {
+        ++globalNotifID;
+    }
 
     public String toString() {
         return "NOTIFICATION:\nNotification ID: " + this.notifID + "\nTitle: " + this.title + "\nDescription: " +

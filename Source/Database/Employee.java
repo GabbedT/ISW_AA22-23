@@ -1,5 +1,7 @@
 package Database;
 
+import java.sql.Date;
+
 public class Employee extends User {
 
     /* Class attributes */
@@ -19,54 +21,29 @@ public class Employee extends User {
         this.hourlySalary = 0.0F;
     }
 
-    public Employee(Employee employee) {
-        super(employee.getID(), employee.getName(), employee.getSurname(), employee.getEmail(), employee.getPassword(), employee.getGender());
-
-        this.setExpectedWorkHours(employee.getExpectedWorkHours());
-        this.finalWorkHours = employee.getFinalWorkHours();
-        this.setSalary(employee.getSalary());
-    }
-
     
     public Employee(User user) {
-        super(user);
+        super.copy(user);
     }
 
+
     /**
-     * Constructor to instantiate a filled Employee object from the database.
+     * Constructor to instantiate a new Employee object, used for hiring new employees.
+     * The global ID will get incremented.
      * 
-     * @param ID Employee identification code, ID must be a number bigger than 0
      * @param name Employee legal name
      * @param surname Employee legal surname
      * @param email Employee email to access his account
      * @param password Employee password to access his account
      * @param salary Employee salary in euro
-     * @param expWH Employee expected total work hours 
-     * @param finWH Employee final total work hours
+     * @param gender Employee gender
+     * @param age Employee age
+     * @param birthDay Employee birth day (Date.SQL)
+     * @param expWork Expected work hours from the Employee
      */
-    public Employee(int ID, String name, String surname, String email, String password, char gender, int salary, int expWH, int finWH) {
-        super(ID, name, surname, email, password, gender);
-        this.finalWorkHours = finWH;
-        this.expectedWorkHours = expWH;
-
-        setSalary(salary);
-        setExpectedWorkHours(expWH);
-    }
-
-
-    /**
-     * Constructor to instantiate a new Employee object, used for hiring new employees
-     * 
-     * @param ID Employee identification code, ID must be a number bigger than 0
-     * @param name Employee legal name
-     * @param surname Employee legal surname
-     * @param email Employee email to access his account
-     * @param password Employee password to access his account
-     * @param salary Employee salary in euro
-     */
-    public Employee(int ID, char gender, String name, String surname, String email, String password, int salary) {
-        super(ID, name, surname, email, password, gender);
-        this.expectedWorkHours = 144;
+    public Employee(String name, String surname, String email, String password, char gender, int age, Date birthDay, int salary, int expWork) {
+        super(name, surname, email, password, gender, age, birthDay);
+        this.expectedWorkHours = expWork;
         this.finalWorkHours = 0;
 
         setSalary(salary);
@@ -171,6 +148,14 @@ public class Employee extends User {
 //-----------//
 //  METHODS  //
 //-----------//
+
+    public void copy(Employee employee) {
+        super.copy(employee);
+
+        this.setExpectedWorkHours(employee.getExpectedWorkHours());
+        this.finalWorkHours = employee.getFinalWorkHours();
+        this.setSalary(employee.getSalary());
+    }
 
 // SPOSTA I METODI NELLA CONTROL
 

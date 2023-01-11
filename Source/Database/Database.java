@@ -12,8 +12,12 @@ public class Database {
     private Statement query;
     private ResultSet resultQuery;
 
+    private final String databaseName = "javaapp_db";
+    private final String username = "postgres";
+    private final String password = "DBMS_Password";
+
     public static void main(String[] args) {
-        Database DBMS = new Database("javaapp_db", "postgres", "DBMS_Password");
+        Database DBMS = new Database();
 
         Employee employee = DBMS.getEmployee("Gabriele", "Tripi").get(0);
         System.out.println(employee.toString() + "\n\n");
@@ -36,11 +40,11 @@ public class Database {
      * Constructor method of the class, it connects the local PostgreSQL database
      * to the application code. 
      */
-    public Database(String databaseName, String username, String password) {
+    public Database() {
         try {
             /* Connect to PostgreSQL database */
             Class.forName("org.postgresql.Driver");
-            DBMS = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + databaseName, username, password);
+            DBMS = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + this.databaseName, this.username, this.password);
         } catch (Exception connExc) {
             /* Catch connection exception */
             connExc.printStackTrace();
@@ -98,6 +102,8 @@ public class Database {
                 usrDB.setSurname(resultQuery.getString("Surname"));
                 usrDB.setID(resultQuery.getInt("ID"));
                 usrDB.setGender(resultQuery.getString("Gender").charAt(0));
+                usrDB.setAge(resultQuery.getInt("Age"));
+                usrDB.setBirthDay(resultQuery.getDate("BirthDay"));
                 usrDB.setEmail(loginEmail);
                 usrDB.setPassword(loginPassword); 
             }
@@ -147,6 +153,8 @@ public class Database {
                 usrDB.setName(resultQuery.getString("Name"));
                 usrDB.setSurname(resultQuery.getString("Surname"));
                 usrDB.setID(resultQuery.getInt("ID"));
+                usrDB.setAge(resultQuery.getInt("Age"));
+                usrDB.setBirthDay(resultQuery.getDate("BirthDay"));
                 usrDB.setGender(resultQuery.getString("Gender").charAt(0));
                 usrDB.setEmail(resultQuery.getString("Email"));
                 usrDB.setPassword(resultQuery.getString("Password"));
@@ -207,6 +215,8 @@ public class Database {
                 empDB.setID(resultQuery.getInt("ID"));
                 empDB.setName(resultQuery.getString("Name"));
                 empDB.setSurname(resultQuery.getString("Surname"));
+                empDB.setAge(resultQuery.getInt("Age"));
+                empDB.setBirthDay(resultQuery.getDate("BirthDay"));
                 empDB.setGender((resultQuery.getString("Gender").charAt(0)));
                 empDB.setExpectedWorkHours(resultQuery.getInt("ExpectedWorkHours"));
                 empDB.setFinalWorkHours(resultQuery.getInt("FinalWorkHours"));
