@@ -438,9 +438,9 @@ public class Database {
      * 
      * @return A list of AbstentionRequest, return null if any error occurred
      */
-    public ArrayList<AbstentionRequest> getAbstentionRequest(int receiverID) {
+    public ArrayList<AbstentionRequest> getAbstentionRequest() {
         /* Query result containers */
-        AbstentionRequest absReqfDB;
+        AbstentionRequest absReqDB;
         ArrayList<AbstentionRequest> absReqListDB = new ArrayList<>();
 
         try {
@@ -450,34 +450,34 @@ public class Database {
 
             String queryString = "SELECT * " +
                                  "FROM AbstentionRequest AbsReq, Notification Notif  " +
-                                 "WHERE (AbsReq.RequestID = Notif.NotificationID) AND (ReceiverID = ? )";
+                                 "WHERE (AbsReq.RequestID = Notif.NotificationID) AND (ReceiverID = 1)";
 
             PreparedStatement statement = DBMS.prepareStatement(queryString);
-            statement.setInt(1, receiverID);
-
             resultQuery = statement.executeQuery();
 
 
             while (resultQuery.next()) {
                 /* Create a new notification with the corresponding ID */
-                absReqfDB = new AbstentionRequest(resultQuery.getInt("NotificationID"));
+                absReqDB = new AbstentionRequest(resultQuery.getInt("NotificationID"));
                 
                 /* Fill sender and receiver */
-                absReqfDB.setReceiverID(receiverID);
-                absReqfDB.setSenderID(resultQuery.getInt("SenderID"));
+                absReqDB.setReceiverID(receiverID);
+                absReqDB.setSenderID(resultQuery.getInt("SenderID"));
 
                 /* Fill notification text */
-                absReqfDB.setDescription(resultQuery.getString("Description"));
-                absReqfDB.setTitle(resultQuery.getString("Title"));
+                absReqDB.setDescription(resultQuery.getString("Description"));
+                absReqDB.setTitle(resultQuery.getString("Title"));
 
                 /* Fill status info */
-                absReqfDB.setAcceptanceStatus(resultQuery.getBoolean("AcceptanceStatus"));
+                absReqDB.setAcceptanceStatus(resultQuery.getBoolean("AcceptanceStatus"));
 
                 /* Cast the integer value into AbstentionType value */
-                absReqfDB.setType((AbstentionRequest.AbstentionType.values()[resultQuery.getInt("RequestType")]));
+                absReqDB.setType((AbstentionRequest.AbstentionType.values()[resultQuery.getInt("RequestType")]));
 
-                /* Push the new notification into the list */
-                absReqListDB.add(absReqfDB);
+                /* Push the new notification into the list only if it wasn't accepted */
+                if (absReqDB.getAcceptanceStatus) {
+                    absReqListDB.add(absReqfDB);
+                }
             }
 
             if (absReqListDB.isEmpty()) {
