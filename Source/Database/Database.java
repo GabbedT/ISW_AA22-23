@@ -197,15 +197,39 @@ public class Database {
              * rows from the database */
             query = DBMS.createStatement();
 
-            String queryString = "SELECT * " +
-                                 "FROM Employee Emp JOIN UserApp Usr ON (Emp.EmployeeID = Usr.ID) " +
-                                 /* Join the User with the Employee and find partial matches */
-                                 "WHERE (Usr.Name LIKE ? ) OR (Usr.Surname LIKE ? )";
+            String queryString;  
+            
+            if ((nameEmployee.equals("")) && (surnameEmployee.equals(""))) {
+                return null;    
+            } else if (nameEmployee.equals("")) {
+                 queryString = "SELECT * " +
+                              "FROM Employee Emp JOIN UserApp Usr ON (Emp.EmployeeID = Usr.ID) " +
+                              /* Join the User with the Employee and find partial matches */
+                              "WHERE Usr.Surname LIKE ? ";
 
-            PreparedStatement statement = DBMS.prepareStatement(queryString);
+                PreparedStatement statement = DBMS.prepareStatement(queryString);
 
-            statement.setString(1, nameEmployee);
-            statement.setString(2, surnameEmployee);
+                statement.setString(1, surnameEmployee);
+            } else if (surnameEmployee.equals("")) {
+                   queryString = "SELECT * " +
+                              "FROM Employee Emp JOIN UserApp Usr ON (Emp.EmployeeID = Usr.ID) " +
+                              /* Join the User with the Employee and find partial matches */
+                              "WHERE Usr.Name LIKE ? ";
+
+                PreparedStatement statement = DBMS.prepareStatement(queryString);
+
+                statement.setString(1, nameEmployee);
+            } else {
+                queryString = "SELECT * " +
+                              "FROM Employee Emp JOIN UserApp Usr ON (Emp.EmployeeID = Usr.ID) " +
+                              /* Join the User with the Employee and find partial matches */
+                              "WHERE (Usr.Name LIKE ? ) OR (Usr.Surname LIKE ? )";
+
+                PreparedStatement statement = DBMS.prepareStatement(queryString);
+
+                statement.setString(1, nameEmployee);
+                statement.setString(2, surnameEmployee);
+            }
 
             resultQuery = statement.executeQuery();
 
