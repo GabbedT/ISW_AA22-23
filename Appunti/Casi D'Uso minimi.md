@@ -50,13 +50,13 @@ Il seguente caso d'uso permette all'utente avente i permessi da datore di lavoro
 
 3. Il sistema genera una password unica e un codice identificativo per l'account del nuovo impiegato
 
-4. Il sistema inserisce i dati nel database settando la flag per invalidare temporaneamente l'account 
+4. Il sistema inserisce i dati nella coda delle assunzioni nel database
 
 5. Il sistema mostra il messaggio di stato: "Richiesta assunzione dipendente avvenuta con successo! L'assunzione effettiva avverrà tra X giorni" (Il numero di giorni rimanente alla fine del trimestre)
 
 6. L'utente clicca il tasto *Ok* 
 
-7. Le credenziali vengono stampate a schermo e il sistema manda una notifica all'account del nuovo impiegato contenente le credenziali di accesso.
+7. Le credenziali vengono stampate a schermo.
    
 
 ### Postcondizioni 
