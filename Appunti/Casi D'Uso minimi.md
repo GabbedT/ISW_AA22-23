@@ -1163,7 +1163,7 @@ Il seguente caso d'uso permette all'utente avente i permessi da datore di lavoro
 
 1. L'utente clicca sul tasto *Conferma Richiesta*
 
-2. Il sistema manda una richiesta al DBMS per confermare le ferie
+2. Il sistema manda una richiesta al DBMS per confermare le ferie settando a "true" la flag di visualizzazione associata alla richiesta.
 
 3. Il sistema mostra il messaggio di informazione: "La richiesta è stata accettata con successo!"
 
@@ -1210,11 +1210,13 @@ Il seguente caso d'uso permette all'utente avente i permessi da datore di lavoro
 
 2. Il sistema invia una notifica inbox per informare il dipendente 
 
-3. Il sistema mostra un messaggio di informazione a video per informare l'utente che l'operazione è riuscita.
+3. Il sistema manda una richiesta di eliminazione al DBMS associata all'ID della richiesta
 
-4. L'utente clicca il tasto *Ok* e viene reindirizzato alla schermata di *Home*
+4. Il sistema mostra un messaggio di informazione a video per informare l'utente che l'operazione è riuscita.
+
+5. L'utente clicca il tasto *Ok* e viene reindirizzato alla schermata di *Home*
    
-5. L'utente clicca sul tasto *OK* del messaggio per confermarne la visione
+6. L'utente clicca sul tasto *OK* del messaggio per confermarne la visione
 
 ### Postcondizioni 
 
@@ -1250,7 +1252,7 @@ Il seguente caso d'uso permette all'utente con i permessi da "Datore di lavoro" 
 
 ### Flusso di eventi
 
-1. L'utente clicca sull'icona *Visualizza Trimestre*
+1. L'utente clicca sull'icona *View Work Schedule*
 
 1. Il sistema richiede al DBMS per ogni servizio offerto dall'azienda tutti i turni di tutto il trimestre
 
@@ -1262,7 +1264,7 @@ Il seguente caso d'uso permette all'utente con i permessi da "Datore di lavoro" 
 
 ### Errori
 
-* Il sistema non riesce a connettersi con il DBMS: 
+* Il sistema rileva un errore nel database:
     - Il sistema mostra il messaggio di errore: "Errore durante la connessione con il database"
     - L'utente clicca il tasto *Ok*
     - L'utente ritorna al punto 1 
@@ -1344,13 +1346,20 @@ Il seguente caso d'uso permette al dipendente di dimostrare la sua presenza in o
 
 ### Flusso eventi
 
-1. Il dipendente badga, il sistema genera un messaggio di conferma con le informazioni sul turno e sul dipendente viene ricevuto
+1. Il dipendente badga
 
 2. Scrivi sul corrispondente turno nel DBMS l'informazione sulla rilevazione della presenza (in orario)
 
 ### Postcondizioni 
 
 * Il sistema ha aggiornato il DBMS aziendale 
+
+### Errori 
+
+* Il sistema rileva un errore nel database:  
+    - Il sistema mostra il messaggio di errore: "Errore durante la connessione con il database"
+    - L'utente clicca il tasto *Ok*
+    - L'utente ritorna al punto 1 
 
 
 
@@ -1426,7 +1435,7 @@ Il seguente caso d'uso permette al generico utente di visualizzare la lista dell
 
 1. Il sistema manda una richiesta di lettura al DBMS per ogni notifica associata all'utente
 
-2. Il sistema stampa a schermo tutte le notifiche prelevate, solo il nome e il tipo della notifica viene visualizzata nella lista
+2. Il sistema stampa a schermo tutte le notifiche prelevate
 
 ### Postcondizioni
 
@@ -1434,7 +1443,7 @@ Il seguente caso d'uso permette al generico utente di visualizzare la lista dell
 
 ### Errori 
 
-* Il sistema non riesce a connettersi con il DBMS: 
+* Il sistema rileva un errore nel database: 
     - Il sistema mostra il messaggio di errore: "Errore durante la connessione con il database"
     - L'utente clicca il tasto *Ok*
     - L'utente ritorna al punto 1 
@@ -1458,7 +1467,7 @@ Il seguente caso d'uso permette al generico utente di visualizzare una notifica
 
 ### Precondizioni 
 
-* L'utente ha [visualizzato la lista delle notifiche](#visualizza-lista-notifiche) inbox 
+* L'utente ha [visualizzato la lista delle notifiche](#visualizza-lista-notifiche) 
 
 ### Flusso Eventi
 
@@ -1511,7 +1520,7 @@ Il seguente caso d'uso permette al sistema di inviare una notifica ad un generic
 
 ### Errori 
 
-* Il sistema non riesce a connettersi con il DBMS: 
+* Il sistema rileva un errore nel database: 
     - Il sistema mostra il messaggio di errore: "Errore durante la connessione con il database"
     - L'utente clicca il tasto *Ok*
     - L'utente ritorna al punto 1 
@@ -1534,11 +1543,15 @@ Il seguente caso d'uso permette al sistema di eliminare una notifica
 
 ### Precondizioni
 
-* L'utente ha cliccato sulla notifica o nel caso di una richiesta di astensione l'utente deve aver dato l'esito ed è uscito dall'interfaccia di visualizzazione notifica
+* L'utente ha ricevuto la notifica (non richiesta di astensione)
 
 ### Flusso Eventi
 
-1. Il sistema manda una richiesta di lettura al DBMS 
+1. L'utente visualizza la notifica
+
+2. L'utente esce dall'interfaccia di visualizzazione notifica
+
+3. Il sistema manda una richiesta di eliminazione al DBMS 
 
 ### Postcondizioni 
 
@@ -1546,7 +1559,7 @@ Il seguente caso d'uso permette al sistema di eliminare una notifica
 
 ### Errori 
 
-* Il sistema non riesce a connettersi con il DBMS: 
+* Il sistema rileva un errore nel database: 
     - Il sistema mostra il messaggio di errore: "Errore durante la connessione con il database"
     - L'utente clicca il tasto *Ok*
     - L'utente ritorna al punto 1 
