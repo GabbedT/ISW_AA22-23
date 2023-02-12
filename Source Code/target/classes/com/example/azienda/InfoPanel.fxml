@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #00001C;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.azienda.InfoPanel">
+   <children>
+      <Button fx:id="buttonHomePage" alignment="CENTER" contentDisplay="CENTER" layoutX="195.0" layoutY="241.0" mnemonicParsing="false" onAction="#userHomePage" prefHeight="35.0" prefWidth="112.0" style="-fx-background-color: #CE201C; -fx-background-radius: 15;" stylesheets="@../../../CSSprova.css" text="CLOSE" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Separator layoutX="42.0" layoutY="74.0" opacity="0.4" prefHeight="1.0" prefWidth="417.0" />
+      <Label layoutX="195.0" layoutY="15.0" text="INFO MESSAGE" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="32.0" fitWidth="31.0" layoutX="152.0" layoutY="15.0">
+         <image>
+            <Image url="file:/C:/Users/aneit/Desktop/Progetto/Azienda/src/main/IMG/info.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="infoLabel" alignment="CENTER" layoutX="63.0" layoutY="77.0" prefHeight="123.0" prefWidth="375.0" style="-fx-border-radius: 15;" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

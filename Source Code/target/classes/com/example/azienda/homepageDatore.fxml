@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.azienda.HomePageDatore">
+    <children>
+        <BorderPane layoutX="71.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <Pane prefHeight="343.0" prefWidth="424.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <AnchorPane layoutX="68.0" prefHeight="600.0" prefWidth="1032.0" style="-fx-background-color: #00001C;">
+                     <children>
+                        <Button fx:id="buttonAddEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="253.0" layoutY="290.0" mnemonicParsing="false" onAction="#userAddEmployee" prefHeight="106.0" prefWidth="230.0" style="-fx-background-color: #00002C;" stylesheets="@../../../CSS.css" text="   HIRE EMPLOYEE" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets top="7.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="button1" alignment="CENTER" layoutX="516.0" layoutY="290.0" mnemonicParsing="false" onAction="#ViewSchedule" prefHeight="106.0" prefWidth="230.0" style="-fx-background-color: #00002C;" stylesheets="@../../../CSS.css" text="          VIEW WORK SCHEDULE" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="35.0" fitWidth="30.0" layoutX="282.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="file:/C:/Users/aneit/Desktop/Progetto/Azienda/src/main/IMG/863823.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="36.0" fitWidth="34.0" layoutX="530.0" layoutY="321.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="file:/C:/Users/aneit/Desktop/Progetto/Azienda/src/main/IMG/calendar-5748.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="SearchEmployee" layoutX="782.0" layoutY="290.0" mnemonicParsing="false" onAction="#Search" prefHeight="106.0" prefWidth="230.0" style="-fx-background-color: #00002C; -fx-background-radius: 25;" stylesheets="@../../../CSS.css" text="    SEARCH EMPLOYEE" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="799.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="file:/C:/Users/aneit/Desktop/Progetto/Azienda/src/main/IMG/magnifying-glass-illustration.png" />
+                           </image>
+                        </ImageView>
+                        <AnchorPane layoutX="-69.0" prefHeight="600.0" prefWidth="298.0" style="-fx-background-color: #00002C;">
+                           <children>
+                              <ImageView fitHeight="99.0" fitWidth="101.0" layoutX="100.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="file:/C:/Users/aneit/Desktop/Progetto/Azienda/src/main/IMG/icons8-user-circle-96.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="ProfileName" alignment="CENTER" contentDisplay="CENTER" layoutX="55.0" layoutY="123.0" prefHeight="30.0" prefWidth="189.0" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="NotificationsButton" layoutX="64.0" layoutY="352.0" mnemonicParsing="false" onAction="#View" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: #00002C;" text="Notifications" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="ChangePasswordButton" layoutX="64.0" layoutY="312.0" mnemonicParsing="false" onAction="#Change" style="-fx-background-color: #00002C;" text="Change Password" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                              <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="38.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="file:/C:/Users/aneit/Desktop/Progetto/Azienda/src/main/IMG/icons8-notification-32.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="29.0" layoutX="39.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="file:/C:/Users/aneit/Desktop/Progetto/Azienda/src/main/IMG/icons8-lock-50.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="buttonLogout" layoutX="93.0" layoutY="509.0" mnemonicParsing="false" onAction="#userLogOut" prefHeight="35.0" prefWidth="112.0" style="-fx-background-color: #CE201C; -fx-background-radius: 15;" stylesheets="@../../../CSSprova.css" text="LOGOUT" textFill="WHITE" />
+                              <ImageView fitHeight="13.0" fitWidth="13.0" layoutX="52.0" layoutY="354.0">
+                                 <image>
+                                    <Image url="file:/C:/Users/aneit/Desktop/Progetto/Azienda/src/main/IMG/icons8-filled-circle-24.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <Separator layoutX="232.0" opacity="0.6" orientation="VERTICAL" prefHeight="600.0" prefWidth="0.0" />
+                     </children></AnchorPane>
+                    </children>
+                </Pane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
