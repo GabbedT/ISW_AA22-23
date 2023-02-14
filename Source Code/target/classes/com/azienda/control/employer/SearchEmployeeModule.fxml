@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.azienda.control.employer.SearchEmployeeControl">
+   <children>
+      <AnchorPane id="AnchorPane" layoutX="-211.0" layoutY="-3.0" prefHeight="606.0" prefWidth="1311.0" style="-fx-background-color: #00001C;">
+         <children>
+            <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+            <TableView fx:id="tableViewWork" layoutX="439.0" layoutY="188.0" prefHeight="308.0" prefWidth="660.0" style="-fx-background-color: #00001C; -fx-border-color: WHITE; -fx-border-radius: 5; -fx-text-fill: WHITE;" stylesheets="@../../../../CSS.css">
+               <styleClass>
+                  <String fx:value="text-field" />
+                  <String fx:value="red-column" />
+               </styleClass>
+               <columns>
+                  <TableColumn fx:id="EmpIDColumn" prefWidth="220.0" style="-fx-background-color: #00001C;" text="ID" />
+                  <TableColumn fx:id="NameColumn" prefWidth="220.0" style="-fx-background-color: #00001C;" text="NAME" />
+                  <TableColumn fx:id="SurnameColumn" prefWidth="220.0" style="-fx-background-color: #00001C;" text="SURNAME" />
+               </columns>
+            </TableView>
+            <TextField fx:id="searchBox" layoutX="548.0" layoutY="137.0" prefHeight="25.0" prefWidth="441.0" style="-fx-background-color: #00001C; -fx-background-radius: 15; -fx-border-color: WHITE; -fx-border-radius: 15;" stylesheets="@../../../../CSS.css" />
+            <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="945.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/C:/Users/aneit/Desktop/Progetto/Azienda/src/main/IMG/magnifying-glass-illustration.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="560.0" layoutY="31.0" prefHeight="40.0" prefWidth="463.0" text="SEARCH EMPLOYEE" textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="71.0" fitWidth="62.0" layoutX="588.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/C:/Users/aneit/Desktop/Progetto/Azienda/src/main/IMG/employee.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="goBackButton" layoutX="619.0" layoutY="552.0" mnemonicParsing="false" onAction="#GoHome" prefHeight="35.0" prefWidth="112.0" style="-fx-background-color: #CE201C; -fx-background-radius: 15;" text="CANCEL" textFill="WHITE" />
+            <Button fx:id="ConfirmButton" layoutX="768.0" layoutY="550.0" mnemonicParsing="false" onAction="#ButtonConfirm" prefHeight="39.0" prefWidth="120.0" style="-fx-background-color: #000000; -fx-background-radius: 15;" text="CONFIRM" textFill="WHITE" />
+            <Separator layoutX="488.0" layoutY="106.0" opacity="0.3" prefHeight="1.0" prefWidth="560.0" />
+            <Separator layoutX="489.0" layoutY="529.0" opacity="0.3" prefHeight="1.0" prefWidth="560.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
